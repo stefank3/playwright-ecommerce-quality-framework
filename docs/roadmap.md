@@ -4,7 +4,7 @@
 
 Repository: `stefank3/playwright-ecommerce-quality-framework`, public; default branch `main`. M0 working branch: `milestone/0-contract`, tracking `origin/milestone/0-contract`. Recorded initialization baseline: `5a6bb0ba489267d72bbde4b996764afbda3b657a`. The reviewed architecture contract is committed at `7a7d83599ce1505647444d1e686787a090edae0b`. Recheck Git for current state; this is a planning record, not a substitute for inspection.
 
-The repository is planning-only. M0 architecture review is completed: the corrected contract at commit `7a7d83599ce1505647444d1e686787a090edae0b` received `APPROVE WITH NON-BLOCKING RISKS`, with zero blockers. A narrow read-only review also covered the closure diff subsequently committed unchanged as `e2ef8789d526b0ec1544868015fa94a71d100586`. This final record correction is uncommitted and awaits its own exact-state review; earlier verdicts do not cover it. M1 remains explicitly unauthorized and not started. No implementation or dependencies exist; dependency installation and functional implementation gates remain closed. No Node.js baseline is selected, no tests or CI exist, and no npm command has been implemented or validated. No PR, merge, release, deployment, or Automation Exercise contact is authorized. Completion of architecture review does not authorize progression to M1.
+The repository is planning-only. Review history comprises the initial claimed Claude Opus 4.7 review and the Claude Opus 5.5 corrected-state, closure-diff, and final record-correction reviews. The corrected contract was committed as `7a7d83599ce1505647444d1e686787a090edae0b`; the reviewed closure diff was committed unchanged as `e2ef8789d526b0ec1544868015fa94a71d100586`. The final policy correction was reviewed with `APPROVE WITH NON-BLOCKING RISKS` and zero blockers, then committed unchanged as `b43f2d602705ae2acf6f0cd59779c33d86cb4267`, parent `e2ef8789d526b0ec1544868015fa94a71d100586`. With this administrative record included, the M0 contract and review gates are complete on `milestone/0-contract`. The branch has not been merged into main, which remains at `5a6bb0ba489267d72bbde4b996764afbda3b657a`; opening a PR or merging requires separate authorization. M1 remains explicitly unauthorized and not started. No implementation or dependencies exist; dependency installation and functional implementation gates remain closed. No Node.js baseline is selected, no tests or CI exist, and no npm command has been implemented or validated. No PR, merge, release, deployment, or Automation Exercise contact is authorized. M0 completion does not authorize progression to M1.
 
 Source inputs read for this draft are `QA_Engineering_Portfolio_Project_Charter.md` and `Pasted markdown(7).md` (approved corrected roadmap and final M0 kickoff package), supplied by Stefan outside the repository. They are provenance references, not missing repository links. The corrected package narrows the charter's eventual deliverable list. Its historical “repository not created / M0 not authorized” status is superseded by the actual initialization and Stefan's current documentation-only authorization. Setup instructions for other projects/tools do not authorize those operations here.
 
@@ -56,14 +56,14 @@ M1 excludes full checkout, account lifecycle automation, broad page-object hiera
 ## Review, dependency, and publication gates
 
 1. Codex drafts and validates M0 without dependency installation or live contact.
-2. Claude reads all eight files read-only using [CLAUDE.md](../CLAUDE.md). The initial and corrected-state architecture reviews are recorded below.
+2. Claude reads all eight files read-only using [CLAUDE.md](../CLAUDE.md). The initial claimed Claude Opus 4.7 review and Claude Opus 5.5 corrected-state, closure-diff, and final record-correction reviews are recorded below.
 3. Record branch, baseline, reviewed commit, SHA-256 over each reviewed file's bytes without normalization, findings, severity (`BLOCKER`, `MAJOR`, `MINOR`, `NOTE`), evidence, and dispositions. Codex addresses accepted findings; Stefan owns disputed decisions and risk acceptance. Re-review substantive corrections; administrative records follow the rule below.
 4. Claude must return `APPROVE` or `APPROVE WITH NON-BLOCKING RISKS`. `CHANGES REQUIRED` blocks completion. There must be no unresolved `BLOCKER`; a `MAJOR` blocks unless Stefan explicitly accepts and documents the risk with rationale. Only that explicit acceptance permits `APPROVE WITH NON-BLOCKING RISKS` for an accepted MAJOR risk, provided no other blocking finding remains; otherwise the MAJOR remains blocking. `MINOR` and `NOTE` are non-blocking unless explicitly escalated. Any finding rejected as invalid requires documented evidence and an acceptable final verdict; an unresolved `BLOCKER` cannot be waived.
 5. Stefan approves architecture and explicitly authorizes M1 and dependency installation. Only then select/pin supported Node.js LTS and exact package versions, approve formatter/schema tooling, and introduce the required manifest/lock file. M1 must create `.gitignore` before the first dependency installation and in the same bounded change that introduces the manifest and lock file. It must cover dependency directories, reports/test results, environment secrets, and any future authentication-state files. This prerequisite does not authorize creating it in M0. M0 architecture review is completed; this separate progression gate remains closed.
 6. For each later milestone, implement approved scope, validate, review the exact final diff, correct accepted findings, and obtain Claude's final corrected-state verdict. Record actual reviewer model/version when relevant to the audit.
-7. Commit, push, PR, merge, release, and deployment require explicit authorization for each operation. Review approval is not publication permission. The original M0 documentation request authorized none of these operations; later explicit authorizations covered the commits and pushes of `7a7d835` and `e2ef878` only. The current final-record request authorizes editing and validation only: no staging, commit, push, PR, merge, release, or deployment.
+7. Commit, push, PR, merge, release, and deployment require explicit authorization for each operation. Review approval is not publication permission. The original M0 documentation request authorized none of these operations; later explicit authorizations covered the commits and pushes of `7a7d835`, `e2ef878`, and `b43f2d6`. Those historical authorizations did not authorize PR creation, merge, release, deployment, or M1.
 
-### Initial architecture review — completed
+### Initial claimed Claude Opus 4.7 architecture review — recorded
 
 | Field | Recorded evidence |
 | --- | --- |
@@ -114,13 +114,22 @@ Historical evidence source: Stefan-supplied “Claude Code Milestone 0 Architect
 | Original baseline | `5a6bb0ba489267d72bbde4b996764afbda3b657a` |
 | Exact state | All eight reviewed SHA-256 hashes matched the document bytes subsequently committed in `7a7d835`; the inventory is the eight M0 documents listed above |
 | Verdict / blockers | `APPROVE WITH NON-BLOCKING RISKS` / zero blocking findings |
-| Evidence limitation | The original source transcript, original supplied hashes, and claimed Claude Opus 4.7 model identity could not be independently confirmed. Claude checked the original disposition record for internal consistency; only repository evidence available during later reviews was verified |
-| Findings / dispositions | No blockers were reported. Stefan authorized the bounded closure clarifications to review evidence, severity, licensing, dependency telemetry, and pure-contract imports; those corrections were committed as `e2ef878`. The original findings transcript was not available for independent comparison; no finding IDs or severities are reconstructed here |
-| Validation / mutation | All eight corrected-state hashes matched exact on-disk bytes before their unchanged commit as `7a7d835`. The available corrected-state summary does not establish an itemized reviewer validation/mutation log; this limitation is retained. The later narrow review's explicit validation and no-mutation evidence is recorded separately below |
-| Source of this record | Stefan's verified review details and closure-update authorization; this record does not claim a new review of the uncommitted closure state |
+| Findings / dispositions | R1, R2, and N1–N5 are recorded below; no blockers were reported |
+| Validation / mutation | All eight corrected-state hashes matched exact on-disk bytes before their unchanged commit as `7a7d835`; 41 relative links resolved; valid UTF-8 without BOM, LF-only file bytes, no tabs or trailing whitespace, and single final newlines. Reviewer made no file changes, staged and committed nothing, and made no network calls |
+| Source of this record | Stefan's verified corrected-state review details; the source-evidence limitation belongs only to the initial claimed Claude Opus 4.7 review |
 | Disposition / status | M0 architecture review completed. Bounded closure documentation is authorized; M1 and dependency installation remain unauthorized |
 
 The verdict references the exact document bytes in commit `7a7d83599ce1505647444d1e686787a090edae0b`. It does not extend to later uncommitted edits merely because they record that verdict.
+
+| Item | Severity | Finding | Disposition |
+| --- | --- | --- | --- |
+| R1 | MINOR | “high-severity” wording | Corrected in the definition-of-done language committed in `e2ef878` |
+| R2 | MINOR | Recording a verdict after review | Corrected through review-record option (a), committed in `e2ef878`: commit reviewed bytes first, then record the verdict separately |
+| N1 | NOTE | “LF-normalized” wording | Corrected through byte-specific wording |
+| N2 | NOTE | Severity-to-blocking mapping | Corrected in CLAUDE.md |
+| N3 | NOTE | Telemetry missing from dependency assessments | Corrected in engineering-standards.md and security.md |
+| N4 | NOTE | Licence precision | Corrected in README.md |
+| N5 | NOTE | Fixture and builder imports of pure contracts | Corrected in architecture.md |
 
 ### Narrow closure-diff review — completed
 
@@ -132,18 +141,52 @@ The verdict references the exact document bytes in commit `7a7d83599ce1505647444
 | Verdict / blockers | `APPROVE WITH NON-BLOCKING RISKS` / zero blockers |
 | Validation | 58 relative links, strict UTF-8, LF endings, final newlines, whitespace, table structure, and `git diff --check` passed |
 | Mutation / network | Reviewer made no mutations and no network calls |
-| Evidence limitation | Original source transcript, original supplied hashes, and claimed Claude Opus 4.7 model identity could not be independently confirmed; only available repository evidence was verified |
-| Source / next gate | Stefan's supplied review facts and dispositions; this final uncommitted record correction requires one final Claude exact-state review |
+| Source / subsequent review | Stefan's supplied closure-diff review facts and dispositions; the final record-correction review was completed and its exact bytes committed as `b43f2d6` |
 
 | Finding / severity | Evidence and risk | Disposition |
 | --- | --- | --- |
-| R1 / MINOR | The earlier corrected-state review record lacked findings, dispositions, and validation/mutation fields required by the template, reducing audit clarity | ACCEPTED AND CORRECTED by this final record; unavailable historical details are explicitly limited rather than invented |
-| R2 / MINOR | The administrative-record exception could permit unreviewed security, test-strategy, scope, severity, authorization, or governance changes | ACCEPTED AND CORRECTED by narrowing the rule below and in CLAUDE.md; this rule correction itself requires exact-state review |
+| R1 / MINOR | The earlier corrected-state review record lacked findings, dispositions, and validation/mutation fields required by the template, reducing audit clarity | ACCEPTED AND CORRECTED: fields added in `b43f2d6`, with the supplied detailed findings and validation evidence completed in this administrative record |
+| R2 / MINOR | The administrative-record exception could permit unreviewed security, test-strategy, scope, severity, authorization, or governance changes | ACCEPTED AND CORRECTED by the narrower rule in CLAUDE.md and this roadmap, reviewed and committed in `b43f2d6` |
 | R3 / MINOR | `core.autocrlf=true` and no `.gitattributes` may produce CRLF working-tree files after a fresh Windows checkout; committed M0 Git blobs are LF | ACCEPTED AND DEFERRED to authorized M1 kickoff: add `.gitattributes` containing `* text=auto eol=lf` before implementation files are introduced. Do not create it in this patch |
+
+| NOTE finding | Disposition |
+| --- | --- |
+| Outdated “untracked” wording | Corrected in CLAUDE.md by `b43f2d6` |
+| Ambiguous historical authorization wording | Corrected in docs/roadmap.md by `b43f2d6` |
+| Repeated “yet” in README | Corrected by `b43f2d6` |
+| Incomplete evidence-limitation wording | Corrected in docs/roadmap.md by `b43f2d6` |
+| Missing accepted-MAJOR verdict rule | Corrected in CLAUDE.md and docs/roadmap.md by `b43f2d6` |
+
+### Final record-correction review — completed
+
+| Field | Recorded evidence |
+| --- | --- |
+| Date / reviewer | 2026-09-23 / Claude Opus 5.5 (`claude-opus-5-5`) |
+| Reviewed parent state | `e2ef8789d526b0ec1544868015fa94a71d100586` |
+| Reviewed files | CLAUDE.md, README.md, docs/roadmap.md |
+| Committed state | Reviewed bytes committed unchanged as `b43f2d602705ae2acf6f0cd59779c33d86cb4267`; the reviewed on-disk SHA-256 hashes below match the committed Git blob bytes |
+| Verdict / blockers | `APPROVE WITH NON-BLOCKING RISKS` / zero blockers |
+| Validation | 58 links, 16 tables, headings, fences, UTF-8 without BOM, LF endings, final newlines, tabs, whitespace, and `git diff --check` passed |
+| Mutation / network | Reviewer made no mutations and no network calls |
+| Source / status | Stefan's supplied final exact-state review facts and dispositions; this administrative record completes the M0 evidence and status |
+
+| Reviewed file | SHA-256 of reviewed on-disk bytes, unchanged in `b43f2d6` Git blobs |
+| --- | --- |
+| CLAUDE.md | `AB78BC751F85279D7350606E48A4F774B87BF00C2B40FBBB04E0719BAACE2F0B` |
+| README.md | `D9FB63914DABD67CF7D79457EDC116702F59B1F7ABE3F8E280B7D68CE1850C33` |
+| docs/roadmap.md | `5FA9ECDFA4F9655EFE7D5597A8531991D032751A3868C854B4807E397CF66F20` |
+
+| Item | Severity | Disposition |
+| --- | --- | --- |
+| F1 | MINOR | Accepted and corrected by this administrative record |
+| F2 | MINOR | Accepted and corrected by stable post-commit status wording in this administrative record |
+| F3 | NOTE | Accepted and corrected by completing the review lists and committed-state wording |
+| F4 | NOTE | Accepted and deferred to a separately authorized and reviewed M1 kickoff; no scope wording or file is changed here |
+| F5 | NOTE | Accepted for future review prompts; use the repository verdict `CHANGES REQUIRED`, not `REQUEST CHANGES` |
 
 ### Review-record rule and template
 
-Commit the exact reviewed implementation/document bytes first, under explicit Git authorization. A subsequent administrative record may add only review evidence, reviewer identity, reviewed-state identifiers, verdicts, validation results, status, findings, and dispositions. Any other change to requirements, scope, architecture, implementation, test strategy, security, severity rules, authorization rules, or governance requires an exact-state review. Identify the earlier reviewed commit explicitly; the record commit does not retroactively become the reviewed state. This final correction changes review rules and therefore requires exact-state review. No staging, committing, or pushing is authorized for this patch.
+Commit the exact reviewed implementation/document bytes first, under explicit Git authorization. A subsequent administrative record may add only review evidence, reviewer identity, reviewed-state identifiers, verdicts, validation results, status, findings, and dispositions. Any other change to requirements, scope, architecture, implementation, test strategy, security, severity rules, authorization rules, or governance requires an exact-state review. Identify the earlier reviewed commit explicitly; the record commit does not retroactively become the reviewed state. The review-rule correction received exact-state review and was committed unchanged as `b43f2d6`; this record supplies administrative evidence, status, findings, and dispositions only.
 
 Use the template for each subsequent gate; unfilled fields mean pending, never approval. Verify committed states using Git blob bytes, such as the byte stream from `git show <commit>:<path>`, and uncommitted states using exact on-disk bytes. Record SHA-256 and identify which form was used; do not normalize or decode/re-encode bytes before hashing. Line-ending policy remains a separate validation. Distinguish reviewed content from the later administrative record, so the roadmap's own hash is unambiguous.
 
@@ -160,7 +203,7 @@ Use the template for each subsequent gate; unfilled fields mean pending, never a
 
 | Item | Next decision or mitigation |
 | --- | --- |
-| Review scope | Initial and corrected-state architecture reviews are complete; preserve their exact-state references when recording closure |
+| Review scope | Initial claimed Claude Opus 4.7 review and Claude Opus 5.5 corrected-state, closure-diff, and final record-correction reviews are recorded; preserve each exact-state reference and the initial review's evidence limitation |
 | Live scenario and target drift | Approve exact read-only API endpoint/expected fields, UI scenario/page/locator strategy, and host/path allowlist; record dated pre-live Terms of Service and robots.txt checks before authorized live traffic |
 | Lane isolation | Select and record the enforcement mechanism at the M1 gate; no mechanism is chosen in M0 |
 | Traffic budget may be too restrictive for page resources | Review proposed single-worker/request/time caps in [security](security.md); enforce before live use and fail closed rather than silently relax |
