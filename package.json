@@ -1,0 +1,37 @@
+{
+  "name": "playwright-ecommerce-quality-framework",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "license": "UNLICENSED",
+  "engines": {
+    "node": ">=24.21.0 <25",
+    "npm": ">=11 <12"
+  },
+  "scripts": {
+    "doctor": "node scripts/doctor.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc --noEmit",
+    "test": "node scripts/run-tests.mjs",
+    "test:deterministic": "node scripts/run-tests.mjs",
+    "test:live": "node scripts/live-disabled.mjs",
+    "test:debug": "node scripts/run-tests.mjs --debug",
+    "test:list": "node scripts/run-tests.mjs --list",
+    "report": "playwright show-report --host 127.0.0.1",
+    "build": "tsc -p tsconfig.build.json",
+    "check:repository": "node scripts/check-repository.mjs",
+    "validate": "npm run doctor && npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run check:repository"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.63.0",
+    "@types/node": "24.13.6",
+    "eslint": "10.11.0",
+    "prettier": "3.9.9",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.70.1",
+    "zod": "4.6.5"
+  }
+}

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+playwright-report/
+test-results/
+.runtime/
+.env
+.env.*
+!.env.example
+*.tsbuildinfo
+*.log
+.auth/
+*storage-state*.json
