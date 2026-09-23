@@ -1,6 +1,6 @@
 # Independent review contract
 
-This defines the Claude Code review contract. The completed initial M0 architecture review is recorded in [roadmap](docs/roadmap.md); its verdict applies only to the recorded file hashes. The corrected state requires a new review. Current repository status is planning-only.
+This defines the Claude Code review contract. The initial and corrected-state M0 architecture reviews are recorded in [roadmap](docs/roadmap.md); their verdicts apply only to the identified reviewed bytes. The corrected-state verdict references commit `7a7d83599ce1505647444d1e686787a090edae0b`, not subsequent closure edits. Current repository status is planning-only; M1 remains unauthorized.
 
 ## Context and authority
 
@@ -26,6 +26,8 @@ For M0, assess the documented design and its evidence limits. No runtime check e
 
 Each finding must identify severity (`BLOCKER`, `MAJOR`, `MINOR`, or `NOTE`), file and location, evidence, risk, recommended correction, and whether it blocks the milestone. Use this taxonomy consistently in review prompts and records. Do not request style changes already enforced by automation; no such automation exists in M0.
 
-Identify the reviewed branch, baseline commit, and exact document state (SHA-256 over the on-disk file bytes for every uncommitted file, without newline or encoding normalization), plus the actual reviewer model/version when available. Return findings in the review response; Codex records accepted findings and Stefan's dispositions in the roadmap within authorized scope. After corrections, review the corrected exact state again.
+`BLOCKER` always blocks completion. `MAJOR` blocks unless Stefan records explicit risk acceptance with rationale. `MINOR` and `NOTE` are non-blocking unless explicitly escalated.
+
+Identify the reviewed branch, baseline commit, and exact document state (SHA-256 over the on-disk file bytes for every uncommitted file, without newline or encoding normalization), plus the actual reviewer model/version when available. Return findings in the review response; Codex records accepted findings and Stefan's dispositions in the roadmap within authorized scope. After substantive corrections, review the corrected exact state again. Follow the roadmap's review-record rule for subsequent administrative records that make no unreviewed implementation or architectural change.
 
 Finish with exactly one verdict: `APPROVE`, `APPROVE WITH NON-BLOCKING RISKS`, or `CHANGES REQUIRED`. The last verdict blocks completion. An acceptable verdict does not itself authorize implementation, dependencies, or Git/GitHub operations.

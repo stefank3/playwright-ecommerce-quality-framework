@@ -27,7 +27,7 @@ Exported functions, named helpers, fixture factories, and non-obvious callbacks 
 | `zod` or another justified schema validator | Validate untrusted configuration and API responses at runtime; prefer one validator over handwritten duplicate checks | Compare need, footprint, and maintenance at M1 gate |
 | `@axe-core/playwright` | Focused automated accessibility diagnostics using Playwright context | Justified candidate for M3; install only when that scope is authorized |
 
-Each addition needs purpose, alternatives, license/maintenance/security assessment, version compatibility, and Stefan's approval. Exact versions and the supported Node.js LTS baseline are selected and pinned only at the implementation gate. No runtime version is selected in M0. A lock file and reproducible installation belong to authorized implementation, not this document change.
+Each addition needs purpose, alternatives, license/maintenance/security assessment, default telemetry/analytics behavior (disable it or reject the dependency), version compatibility, and Stefan's approval. Exact versions and the supported Node.js LTS baseline are selected and pinned only at the implementation gate. No runtime version is selected in M0. A lock file and reproducible installation belong to authorized implementation, not this document change.
 
 Initially exclude Cucumber, Allure, Docker, custom DI/reporters, cloud grids, visual-testing SaaS, and test-management integrations: none is needed to demonstrate the approved slice. No separate ecommerce application is permitted.
 

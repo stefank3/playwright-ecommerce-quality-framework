@@ -39,7 +39,7 @@ tests/
 
 Dependency flow is suites → fixtures/abstractions/assertions → validated configuration and pure data/contracts. Fixtures may import UI/API modules; UI/API modules never import fixtures or suites. UI and API do not import one another. Configuration and data do not depend on browser, transport, reporter, or spec modules. Pure response contracts may be used by API clients and assertions without importing a live client. Avoid cycles and cross-module private imports.
 
-The pure API contract boundary, such as `src/api/contracts/`, must not import the HTTP client, fixtures, assertions, or transport concerns. Consumers import its public contract surface directly, not an API barrel that also imports the client. This keeps assertions independent of transport and prevents dependency cycles. This is a proposed boundary only; no folders are created in M0.
+The pure API contract boundary, such as `src/api/contracts/`, must not import the HTTP client, fixtures, assertions, or transport concerns. Fixtures and test-data builders may import pure, transport-independent API contract types from this boundary. Consumers import its public contract surface directly, not an API barrel that also imports the client; the contract boundary must never bring in the HTTP client or transport concerns. This keeps assertions and data builders independent of transport and prevents dependency cycles. This is a proposed boundary only; no folders are created in M0.
 
 Keep SDK and HTTP handling at UI/API boundaries. Inject only the page, request context, and settings actually needed; no generic ports hierarchy, service locator, or custom DI container. Assertions expose business-relevant expectations without implementing product business logic.
 

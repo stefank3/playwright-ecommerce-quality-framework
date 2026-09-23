@@ -2,9 +2,9 @@
 
 ## Current status and source authority
 
-Repository: `stefank3/playwright-ecommerce-quality-framework`, public; default branch `main`. M0 working branch: `milestone/0-contract`, local only. Recorded initialization baseline: `5a6bb0ba489267d72bbde4b996764afbda3b657a`. Recheck Git for current state; this is a planning record, not a substitute for inspection.
+Repository: `stefank3/playwright-ecommerce-quality-framework`, public; default branch `main`. M0 working branch: `milestone/0-contract`, tracking `origin/milestone/0-contract`. Recorded initialization baseline: `5a6bb0ba489267d72bbde4b996764afbda3b657a`. The reviewed architecture contract is committed at `7a7d83599ce1505647444d1e686787a090edae0b`. Recheck Git for current state; this is a planning record, not a substitute for inspection.
 
-The repository is planning-only. The initial Claude Code architecture review is complete with `APPROVE WITH NON-BLOCKING RISKS`; Stefan authorized the bounded documentation corrections recorded below. The corrected state awaits independent re-review. Dependency installation and functional implementation gates remain closed. No Node.js baseline is selected, no tests or CI exist, and no npm command has been implemented or validated. M0 completion is pending, not claimed.
+The repository is planning-only. M0 architecture review is completed: the corrected contract at commit `7a7d83599ce1505647444d1e686787a090edae0b` received `APPROVE WITH NON-BLOCKING RISKS`, with zero blockers. This closure update records that review and bounded documentation clarifications; it is not the reviewed state. M1 remains explicitly unauthorized and not started. Dependency installation and functional implementation gates remain closed. No Node.js baseline is selected, no tests or CI exist, and no npm command has been implemented or validated. Completion of architecture review does not authorize progression to M1.
 
 Source inputs read for this draft are `QA_Engineering_Portfolio_Project_Charter.md` and `Pasted markdown(7).md` (approved corrected roadmap and final M0 kickoff package), supplied by Stefan outside the repository. They are provenance references, not missing repository links. The corrected package narrows the charter's eventual deliverable list. Its historical “repository not created / M0 not authorized” status is superseded by the actual initialization and Stefan's current documentation-only authorization. Setup instructions for other projects/tools do not authorize those operations here.
 
@@ -21,8 +21,8 @@ Follow the [authority and read order in AGENTS.md](../AGENTS.md). Repository fac
 | Automation Exercise as an external live target | Approved target choice; does not imply current availability or permission for intrusive testing |
 | Required deterministic lane; optional manual/scheduled live lane | Approved split: required checks must not rely on a third party |
 | Built-in reporters; later `@axe-core/playwright` with explicit limitations | Approved direction: useful diagnostics without custom infrastructure or certification claims |
-| `src/` support and `tests/` scenarios | M0 draft resolution for review: makes dependency direction visible without a separate app; see [architecture](architecture.md) |
-| Transport-independent API contract boundary, fixture-based composition | M0 draft resolution, clarified after review: validate real boundaries without a generic DI/contracts platform |
+| `src/` support and `tests/` scenarios | Independently reviewed M0 contract: makes dependency direction visible without a separate app; see [architecture](architecture.md) |
+| Transport-independent API contract boundary, fixture-based composition | Independently reviewed M0 contract: validate real boundaries without a generic DI/contracts platform |
 | Dependencies proposed individually, no versions installed | Preserves the implementation gate; [rationale](engineering-standards.md) |
 
 ## Milestones and acceptance criteria
@@ -56,10 +56,10 @@ M1 excludes full checkout, account lifecycle automation, broad page-object hiera
 ## Review, dependency, and publication gates
 
 1. Codex drafts and validates M0 without dependency installation or live contact.
-2. Claude reads all eight files read-only using [CLAUDE.md](../CLAUDE.md). The initial architecture review is recorded below; confirm reviewer availability for corrected-state review.
-3. Record branch, baseline, SHA-256 over each uncommitted file's on-disk bytes without normalization, findings, severity (`BLOCKER`, `MAJOR`, `MINOR`, `NOTE`), evidence, and dispositions. Codex addresses accepted findings; Stefan owns disputed decisions and risk acceptance. Re-review any corrected state.
-4. Claude must return `APPROVE` or `APPROVE WITH NON-BLOCKING RISKS`. `CHANGES REQUIRED` blocks completion. Blocking findings must be resolved or rejected with documented evidence and Stefan's approval, followed by an acceptable final verdict.
-5. Stefan approves architecture and explicitly authorizes M1 and dependency installation. Only then select/pin supported Node.js LTS and exact package versions, approve formatter/schema tooling, and introduce the required manifest/lock file. M1 must create `.gitignore` before the first dependency installation and in the same bounded change that introduces the manifest and lock file. It must cover dependency directories, reports/test results, environment secrets, and any future authentication-state files. This prerequisite does not authorize creating it in M0. M0 completion includes this progression gate; corrected-draft readiness is not completion.
+2. Claude reads all eight files read-only using [CLAUDE.md](../CLAUDE.md). The initial and corrected-state architecture reviews are recorded below.
+3. Record branch, baseline, reviewed commit, SHA-256 over each reviewed file's bytes without normalization, findings, severity (`BLOCKER`, `MAJOR`, `MINOR`, `NOTE`), evidence, and dispositions. Codex addresses accepted findings; Stefan owns disputed decisions and risk acceptance. Re-review substantive corrections; administrative records follow the rule below.
+4. Claude must return `APPROVE` or `APPROVE WITH NON-BLOCKING RISKS`. `CHANGES REQUIRED` blocks completion. There must be no unresolved `BLOCKER`; a `MAJOR` blocks unless Stefan records explicit risk acceptance with rationale. `MINOR` and `NOTE` are non-blocking unless explicitly escalated. Any finding rejected as invalid requires documented evidence and an acceptable final verdict; an unresolved `BLOCKER` cannot be waived.
+5. Stefan approves architecture and explicitly authorizes M1 and dependency installation. Only then select/pin supported Node.js LTS and exact package versions, approve formatter/schema tooling, and introduce the required manifest/lock file. M1 must create `.gitignore` before the first dependency installation and in the same bounded change that introduces the manifest and lock file. It must cover dependency directories, reports/test results, environment secrets, and any future authentication-state files. This prerequisite does not authorize creating it in M0. M0 architecture review is completed; this separate progression gate remains closed.
 6. For each later milestone, implement approved scope, validate, review the exact final diff, correct accepted findings, and obtain Claude's final corrected-state verdict. Record actual reviewer model/version when relevant to the audit.
 7. Commit, push, PR, merge, release, and deployment require explicit authorization for each operation. Review approval is not publication permission. This M0 request authorizes none of them.
 
@@ -75,9 +75,9 @@ M1 excludes full checkout, account lifecycle automation, broad page-object hiera
 | Findings summary | Three MINOR non-blocking risks and eight NOTE optional improvements; disposition mapped below |
 | Mutation / validation | Claude modified no repository files; reported valid relative links, LF-only UTF-8 without BOM, and clean whitespace; no dependencies, implementation, CI, or external contact |
 | Accepted disposition | Stefan accepted all eleven items as bounded M0 documentation hardening. Codex applied the corrections; unresolved M1 decisions remain open. No M1, dependency-installation, or publication authority was granted |
-| Corrected-state review | Pending; the initial verdict does not cover the subsequent corrected bytes |
+| Corrected-state review | Subsequently completed for commit `7a7d83599ce1505647444d1e686787a090edae0b`, as recorded below; the initial verdict covers only the original hashes |
 
-Evidence source: Stefan-supplied “Claude Code Milestone 0 Architecture Review” attachment. Before correction, all eight on-disk byte hashes matched the review. The review described LF-normalized files on disk; these hashes identify those original bytes, not the current corrected state.
+Evidence source: Stefan-supplied “Claude Code Milestone 0 Architecture Review” attachment. Before correction, all eight on-disk byte hashes matched the review. The reviewed files were LF-only files on disk; these hashes identify those original bytes, not the corrected contract or this closure update. No normalization is part of hashing.
 
 | Reviewed file | Original reviewed SHA-256 |
 | --- | --- |
@@ -104,14 +104,32 @@ Evidence source: Stefan-supplied “Claude Code Milestone 0 Architecture Review�
 | 3.7 / NOTE | Require dated pre-live Terms of Service and robots.txt checks without contacting the target now |
 | 3.8 / NOTE | Clarify the intended MIT license and absence of a current reuse grant |
 
-### Review-record template
+### Corrected-state architecture review — completed
 
-Use for each subsequent gate; unfilled fields mean pending, never approval. Record hashes for the exact reviewed state before adding its review record, so the roadmap's own hash is unambiguous.
+| Field | Recorded evidence |
+| --- | --- |
+| Date / reviewer | 2026-09-23 / Claude Code, independent reviewer |
+| Model | Claude Opus 5.5 (`claude-opus-5-5`) |
+| Branch / reviewed commit | `milestone/0-contract` / `7a7d83599ce1505647444d1e686787a090edae0b` |
+| Original baseline | `5a6bb0ba489267d72bbde4b996764afbda3b657a` |
+| Exact state | All eight reviewed SHA-256 hashes matched the document bytes subsequently committed in `7a7d835`; the inventory is the eight M0 documents listed above |
+| Verdict / blockers | `APPROVE WITH NON-BLOCKING RISKS` / zero blocking findings |
+| Evidence limitation | The original review attachment was unavailable in that session. Claude checked the original disposition record for internal consistency rather than against the source transcript |
+| Source of this record | Stefan's verified review details and closure-update authorization; this record does not claim a new review of the uncommitted closure state |
+| Disposition / status | M0 architecture review completed. Bounded closure documentation is authorized; M1 and dependency installation remain unauthorized |
+
+The verdict references the exact document bytes in commit `7a7d83599ce1505647444d1e686787a090edae0b`. It does not extend to later uncommitted edits merely because they record that verdict.
+
+### Review-record rule and template
+
+Commit the exact reviewed implementation/document bytes first, under explicit Git authorization. A subsequent administrative commit may record the review verdict and status, provided it makes no unreviewed implementation or architectural change. Identify the earlier reviewed commit explicitly; the record commit does not retroactively become the reviewed state. Substantive implementation or architectural changes require review of their exact state. This rule does not authorize staging, committing, or pushing this closure update.
+
+Use the template for each subsequent gate; unfilled fields mean pending, never approval. Record SHA-256 over exact file bytes without normalization and distinguish reviewed content from the later administrative record, so the roadmap's own hash is unambiguous.
 
 | Field | Required entry |
 | --- | --- |
 | Review identity | Date, gate, reviewer, actual model/version |
-| Exact state | Branch, baseline commit, tracked/untracked inventory, SHA-256 over every reviewed uncommitted file's on-disk bytes |
+| Exact state | Branch, baseline and reviewed commit, tracked/untracked inventory, SHA-256 over every reviewed file's bytes; distinguish any later administrative record |
 | Validation / mutation | Checks and exact results, limitations, whether the reviewer modified any files |
 | Findings | ID, severity (`BLOCKER`, `MAJOR`, `MINOR`, `NOTE`), location, evidence, risk, correction, blocking status |
 | Disposition | Stefan's acceptance/rejection and evidence, correction status, remaining decisions |
@@ -121,14 +139,14 @@ Use for each subsequent gate; unfilled fields mean pending, never approval. Reco
 
 | Item | Next decision or mitigation |
 | --- | --- |
-| Corrected architecture | Obtain exact-state re-review of clarified contract separation and the bounded corrections; initial review is complete |
+| Review scope | Initial and corrected-state architecture reviews are complete; preserve their exact-state references when recording closure |
 | Live scenario and target drift | Approve exact read-only API endpoint/expected fields, UI scenario/page/locator strategy, and host/path allowlist; record dated pre-live Terms of Service and robots.txt checks before authorized live traffic |
 | Lane isolation | Select and record the enforcement mechanism at the M1 gate; no mechanism is chosen in M0 |
 | Traffic budget may be too restrictive for page resources | Review proposed single-worker/request/time caps in [security](security.md); enforce before live use and fail closed rather than silently relax |
 | Artifact leakage and public CI visibility | Review capture safety, retention/redaction enforcement, and whether later CI uploads remain off or use an approved retention period within the seven-day cap; no mechanism is selected and uploads remain off pending approval |
 | Tooling/version compatibility | Select supported Node.js LTS, exact versions, formatter, schema validator, and command/build applicability at the implementation gate |
 | External instability and misleading claims | Separate lane results, preserve unknown failures for triage, and distinguish future targets from executed evidence |
-| Corrected-state review availability | Arrange Claude's independent re-review; Codex self-validation is not independent approval |
+| M1 authorization | Remains closed despite completed M0 architecture review; obtain Stefan's explicit approval before implementation or dependencies |
 
 ## Explicit deferrals
 
@@ -139,7 +157,7 @@ Cross-browser coverage, account/checkout flows, custom infrastructure/reporting,
 ## Repository definition of done — future completion criteria
 
 - Explicit problem, users, scope, exclusions, limitations, proportionate architecture, and stable typed/tested/documented public boundaries.
-- Applicable formatting, linting, strict typing, tests, build (or justified non-applicability), security/dependency review, and primary validation succeed on the supported baseline; no unexplained skips, quarantine, or flakiness and no unresolved blocker/high-severity risk.
+- Applicable formatting, linting, strict typing, tests, build (or justified non-applicability), security/dependency review, and primary validation succeed on the supported baseline; no unexplained skips, quarantine, or flakiness; no unresolved `BLOCKER`; a `MAJOR` blocks unless Stefan records explicit risk acceptance with rationale.
 - No secrets, sensitive data, unsafe execution paths, or private Release Signal details; generated outputs stored/ignored under the documented policy and history inspected for leaks.
 - A clean clone is installable, configurable, runnable, testable, debuggable, and stoppable from committed instructions; verified PowerShell and relevant POSIX differences, honest expected output, artifact paths, and troubleshooting.
 - CI uses the documented local gate and required checks succeed at the reviewed head; live evidence is separately scoped. Documentation and implementation agree, with accurate TSDoc and justified file-size exceptions.

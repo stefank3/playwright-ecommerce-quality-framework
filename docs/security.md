@@ -47,7 +47,7 @@ Proposed retention is seven days maximum for local raw diagnostics and future CI
 
 ## Supply chain and CI
 
-At the implementation gate, review package purpose, maintainer health, license, install scripts, known vulnerabilities, and transitive impact; minimize additions and use a reviewed lock file. Do not install tools during M0. Record dependency-update checks and unresolved risk dispositions later.
+At the implementation gate, review package purpose, maintainer health, license, install scripts, default telemetry/analytics behavior, known vulnerabilities, and transitive impact; minimize additions and use a reviewed lock file. Default telemetry/analytics must be disabled or the dependency rejected, consistent with the external traffic policy. Do not install tools during M0. Record dependency-update checks and unresolved risk dispositions later.
 
 Future GitHub Actions default to `contents: read`, with extra permissions only for a justified job. Pin third-party actions to reviewed full commit SHAs and maintain an approved update policy with review and validation. Do not expose secrets to untrusted PR code or use privileged PR workflows to execute it. Required CI has no live-site credentials; isolate any separately approved live execution and apply bounded time/concurrency and artifact retention.
 
