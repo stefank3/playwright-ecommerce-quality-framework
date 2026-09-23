@@ -1,6 +1,6 @@
 # Independent review contract
 
-This defines the Claude Code review contract. The initial and corrected-state M0 architecture reviews are recorded in [roadmap](docs/roadmap.md); their verdicts apply only to the identified reviewed bytes. The corrected-state verdict references commit `7a7d83599ce1505647444d1e686787a090edae0b`, not subsequent closure edits. Current repository status is planning-only; M1 remains unauthorized.
+This defines the Claude Code review contract. The initial, corrected-state, and narrow closure-diff M0 reviews are recorded in [roadmap](docs/roadmap.md); their verdicts apply only to the identified reviewed bytes. The corrected-state verdict references commit `7a7d83599ce1505647444d1e686787a090edae0b`; the reviewed closure diff was committed unchanged as `e2ef8789d526b0ec1544868015fa94a71d100586`. Neither verdict covers this final uncommitted record correction, which requires exact-state review. Current repository status is planning-only; M1 remains unauthorized.
 
 ## Context and authority
 
@@ -20,14 +20,16 @@ Act as an independent reviewer unless Stefan explicitly authorizes implementatio
 8. Maintainability.
 9. TSDoc and comment accuracy.
 
-For M0, assess the documented design and its evidence limits. No runtime check exists to pass. Inspect all eight untracked documents as well as Git state; an empty tracked diff is not an empty review. Check the locked M1 slice and deterministic/live isolation. Do not demand implementation or deferred operational files during this gate.
+For M0, assess the documented design and its evidence limits. No runtime check exists to pass. Inspect all eight documents, whether tracked or untracked, as well as Git state; an empty tracked diff is not an empty review. Check the locked M1 slice and deterministic/live isolation. Do not demand implementation or deferred operational files during this gate.
 
 ## Findings and verdict
 
 Each finding must identify severity (`BLOCKER`, `MAJOR`, `MINOR`, or `NOTE`), file and location, evidence, risk, recommended correction, and whether it blocks the milestone. Use this taxonomy consistently in review prompts and records. Do not request style changes already enforced by automation; no such automation exists in M0.
 
-`BLOCKER` always blocks completion. `MAJOR` blocks unless Stefan records explicit risk acceptance with rationale. `MINOR` and `NOTE` are non-blocking unless explicitly escalated.
+`BLOCKER` always blocks completion. `MAJOR` blocks unless Stefan explicitly accepts and documents the risk with rationale; an accepted MAJOR risk results in `APPROVE WITH NON-BLOCKING RISKS` only under that condition and when no other blocking finding remains. Otherwise it remains blocking. `MINOR` and `NOTE` are non-blocking unless explicitly escalated.
 
-Identify the reviewed branch, baseline commit, and exact document state (SHA-256 over the on-disk file bytes for every uncommitted file, without newline or encoding normalization), plus the actual reviewer model/version when available. Return findings in the review response; Codex records accepted findings and Stefan's dispositions in the roadmap within authorized scope. After substantive corrections, review the corrected exact state again. Follow the roadmap's review-record rule for subsequent administrative records that make no unreviewed implementation or architectural change.
+Identify the reviewed branch, baseline commit, and exact document state, plus the actual reviewer model/version when available. Verify committed states using Git blob bytes, such as the byte stream from `git show <commit>:<path>`; verify uncommitted states using exact on-disk bytes. Record SHA-256 and which byte form was used, without newline or encoding normalization. Line-ending policy is a separate validation. Return findings in the review response; Codex records accepted findings and Stefan's dispositions in the roadmap within authorized scope.
+
+An administrative record may add only review evidence, reviewer identity, reviewed-state identifiers, verdicts, validation results, status, findings, and dispositions. Any other change to requirements, scope, architecture, implementation, test strategy, security, severity rules, authorization rules, or governance requires an exact-state review. Follow the same narrow rule in the roadmap; a record never extends an earlier verdict to new bytes.
 
 Finish with exactly one verdict: `APPROVE`, `APPROVE WITH NON-BLOCKING RISKS`, or `CHANGES REQUIRED`. The last verdict blocks completion. An acceptable verdict does not itself authorize implementation, dependencies, or Git/GitHub operations.

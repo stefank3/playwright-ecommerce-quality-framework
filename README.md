@@ -19,7 +19,7 @@ These are design targets, not implemented features. Chromium is the only initial
 
 The design is a test-focused modular monolith. No separate ecommerce application is planned. Milestone 1 is limited to one read-only UI scenario, one API scenario, validated configuration, one UI abstraction, one API client, failure artifacts, and basic documentation. Broader coverage, accessibility hardening, CI, presentation evidence, and release work belong to later milestones.
 
-No badges, screenshots, execution results, or verified Quick Start are available at this stage. MIT is the approved intended license, but no `LICENSE` file exists yet. No open-source license has been granted yet; GitHub platform rights to view and fork the public repository still apply. Runtime and dependency versions remain undecided until the implementation gate.
+No badges, screenshots, execution results, or verified Quick Start are available at this stage. MIT is the approved intended license, but no `LICENSE` file exists. No open-source license has been granted; GitHub platform rights to view and fork the public repository still apply. Runtime and dependency versions remain undecided until the implementation gate.
 
 ## Read the contract
 
