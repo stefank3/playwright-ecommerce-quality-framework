@@ -19,6 +19,7 @@
     "test:live": "node scripts/run-live.mjs",
     "test:live:list": "node scripts/run-live.mjs --list",
     "test:live:ui": "node scripts/run-live.mjs ui",
+    "test:live:ui:headed": "node scripts/run-live.mjs ui --headed",
     "test:live:api": "node scripts/run-live.mjs api",
     "test:debug": "node scripts/run-tests.mjs --debug",
     "test:list": "node scripts/run-tests.mjs --list",

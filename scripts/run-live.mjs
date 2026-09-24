@@ -7,8 +7,20 @@ readLiveConfig(process.env);
 checkTestOutputs();
 mkdirSync('test-results/live', { recursive: true });
 const args = process.argv.slice(2);
-if (args.some((arg) => !['--list', 'ui', 'api'].includes(arg)))
-  throw new Error('Only --list, ui or api are allowed.');
+const allowedArgs = ['--list', '--headed', 'ui', 'api'];
+
+if (args.some((arg) => !allowedArgs.includes(arg))) {
+  throw new Error('Only --list, --headed, ui or api are allowed.');
+}
+
+const headed = args.includes('--headed');
+
+if (
+  headed &&
+  (!args.includes('ui') || args.includes('api') || args.includes('--list'))
+) {
+  throw new Error('--headed is allowed only with the live UI test selection.');
+}
 const lock = safeOutput('test-results') + '/.live-run-lock';
 try {
   mkdirSync(lock);
@@ -30,6 +42,7 @@ try {
       'test',
       '--config=playwright.live.config.ts',
       ...selection,
+      ...(headed ? ['--headed'] : []),
       ...(args.includes('--list') ? ['--list'] : []),
     ],
     {
