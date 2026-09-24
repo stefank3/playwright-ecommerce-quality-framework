@@ -2,9 +2,19 @@
 
 [![Deterministic quality](https://github.com/stefank3/playwright-ecommerce-quality-framework/actions/workflows/deterministic.yml/badge.svg)](https://github.com/stefank3/playwright-ecommerce-quality-framework/actions/workflows/deterministic.yml)
 
-A Playwright and strict TypeScript portfolio framework testing product discovery, session carts and typed API contracts. Required checks run with controlled synthetic inputs; a separate **manual live suite** exercises the shared [Automation Exercise practice site](https://automationexercise.com). Live availability never decides the automatic CI gate.
+A production-style end-to-end test automation framework built with [Playwright](https://playwright.dev/) and strict TypeScript. It validates core e-commerce behaviour across browser and API layers while keeping fast, deterministic CI checks separate from explicitly authorized live testing.
 
-M1 is reviewed and merged. M2 adds four live UI scenarios and five live API scenarios, with traffic budgets and isolated contexts. Independent review and Stefan's evidence disposition leave zero blockers; Repository 1 is portfolio-ready upon PR #3's authorized merge. See the [review record](docs/roadmap.md) for accepted non-blocking improvements. No accounts, orders, payments or persistent user content are created.
+The framework covers product discovery, search, cart operations, quantities, prices and totals, together with typed product, brand and search APIs. Its architecture uses focused page objects, schema-validated API contracts, isolated fixtures, fail-closed configuration, network safety controls and actionable Playwright reports.
+
+Automatic CI runs 49 deterministic tests without contacting external applications. A separate manual lane runs nine UI and API scenarios against the shared [Automation Exercise](https://automationexercise.com/) practice site with one worker, zero retries, bounded traffic and strict target allowlisting.
+
+## What this framework demonstrates
+
+- Maintainable UI automation through focused page and component objects.
+- Typed API testing with runtime schema validation and sanitized failures.
+- Deterministic CI with synthetic fixtures and enforced network isolation.
+- Controlled live testing with explicit opt-in, traffic budgets and reports.
+- Cross-platform setup for Windows and Linux development environments.
 
 ## Start locally
 
