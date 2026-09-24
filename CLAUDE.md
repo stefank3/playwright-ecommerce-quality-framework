@@ -1,6 +1,6 @@
 # Independent review contract
 
-This contract governs the independent read-only review of the final M1 PR head. PR #1 merged M0 at 1eb2d3a062702a3e3d5d772e3a982a7438bb5ee0; the historical reviews remain recorded in [roadmap](docs/roadmap.md). M1 implementation, validation, commit, push and PR creation are authorized; merging M1, M2 and live execution are not. Review the exact PR commit, not a previous M0 verdict.
+This contract governs independent read-only review of the final M2 PR head. Reviewed M1 PR #2 merged at b759bbe07c47310c94bf5e82ac87fb67bc135ef9; historical evidence remains in [roadmap](docs/roadmap.md). Stefan authorized bounded M2 implementation, one restrained live run, commit, push and PR creation. M2 merge, another repository, release and deployment remain unauthorized. Review the exact PR commit, not an earlier verdict. Review permission alone never authorizes another live run.
 
 ## Context and authority
 

@@ -1,6 +1,6 @@
 # Engineering standards
 
-Shared contract for [AGENTS.md](../AGENTS.md) and [CLAUDE.md](../CLAUDE.md). M1 now implements the command contract; historical M0 evidence remains in [roadmap](roadmap.md).
+Shared contract for [AGENTS.md](../AGENTS.md) and [CLAUDE.md](../CLAUDE.md). M2 extends the command contract; historical evidence remains in [roadmap](roadmap.md).
 
 ## Code and boundaries
 
@@ -8,7 +8,7 @@ Use strict TypeScript, `noUncheckedIndexedAccess`, exact optional properties, an
 
 Follow [architecture](architecture.md): specs orchestrate, fixtures compose, UI/API expose narrow public behavior, configuration and data remain independent of transport. Names use kebab-case files, PascalCase types/classes, and camelCase functions. Avoid mutable global state and speculative abstractions.
 
-Target 150–250 lines per source file; shorter cohesive files are fine. Review above 350 lines and require written justification above 450. No M1 source file needs a size exception.
+Target 150–250 lines per source file; shorter cohesive files are fine. Review above 350 lines and require written justification above 450. No source file needs a size exception. Type-aware linting enables `no-floating-promises` (including discarded void promises) and `await-thenable`; Playwright assertions must be awaited.
 
 ## Documentation and comments
 
@@ -46,8 +46,11 @@ Node's current installed system version need not change: a version manager or se
 | `npm run validate`                         | All primary checks, including tests/build, in a fail-fast sequence        |
 | `npm run test:list` / `npm run test:debug` | Guarded discovery / local Inspector                                       |
 | `npm run report`                           | Serve an existing HTML report on loopback; Ctrl+C stops it                |
-| `npm run test:live`                        | Deliberate rejection, exit 1, no network                                  |
+| `npm run test:live`                        | Explicitly opted-in, restrained live suite; never part of validate        |
+| `npm run test:live:list`                   | Validate opt-in and list the nine live cases without requests             |
+| `npm run test:live:ui` / `test:live:api`   | Execute only the selected live subset under the same controls             |
+| `npm run report:open`                      | Open the sanitized live report on loopback                                |
 
-A future accessibility command remains deferred. No separate application-start command is applicable. `npm run format` is the explicit mutating formatter. CI runs `npm ci`, the approved browser installation, then `npm run validate`; it does not upload artifacts or run live suites.
+A future accessibility command remains deferred. No application-start command applies. `npm run format` is the mutating formatter. Automatic CI runs installation and `validate` only. The separate manual live workflow requires acknowledgment and uploads only sanitized report/summary. [Live testing](live-testing.md) owns the operational controls and commands.
 
 Record actual check results rather than interpreting designed commands as passing. See [setup](setup.md), [running tests](running-tests.md), [extension](extending.md), and [troubleshooting](troubleshooting.md). M1 validation evidence belongs to its PR; a Claude verdict is never invented.

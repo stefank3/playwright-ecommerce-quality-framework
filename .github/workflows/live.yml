@@ -1,0 +1,41 @@
+name: Manual live Automation Exercise
+on:
+  workflow_dispatch:
+    inputs:
+      acknowledge:
+        description: 'Contacts Automation Exercise. Confirm authorization and policy check before dispatch.'
+        required: true
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: automation-exercise-live
+  cancel-in-progress: false
+jobs:
+  live:
+    if: inputs.acknowledge
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run doctor
+      - run: npm run test:live
+        env:
+          QE_LIVE: 'true'
+          QE_BASE_URL: https://automationexercise.com
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        if: always()
+        with:
+          name: sanitized-live-evidence
+          path: |
+            playwright-report/live/
+            test-results/live/summary.json
+          retention-days: 7
+          if-no-files-found: warn

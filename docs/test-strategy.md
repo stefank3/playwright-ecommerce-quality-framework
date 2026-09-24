@@ -1,58 +1,42 @@
 # Test strategy
 
-M1 implements controlled UI/API scenarios and supporting boundary checks. The objective is reliable framework evidence without contacting a live target. Live product evidence remains deferred. Follow [architecture](architecture.md), [security](security.md), and the locked M1 scope in [roadmap](roadmap.md).
+Required deterministic checks establish framework correctness under controlled inputs. Manual live checks establish observations about Automation Exercise at a recorded time. Neither lane substitutes for the other. Follow [architecture](architecture.md), [security](security.md), and the authorized [roadmap](roadmap.md).
 
-## Initial slice and coverage
+## Lane isolation and coverage
 
-M1 contains one read-only UI scenario and one API scenario, validated configuration, one UI abstraction, one API client, failure artifacts, and corresponding basic documentation. The selected pair is viewing a synthetic product listing and reading its controlled API response. The API uses the fixed candidate path /api/productsList through an injected function. Expected id/name/price fields are synthetic consumer expectations; no live endpoint or page has been verified. Prefer read-only API behavior as well as read-only UI behavior.
+The default configuration selects only `tests/deterministic/`; `playwright.live.config.ts` selects only `tests/live/`. Separate wrappers enforce configuration and output safety before runner startup. A deterministic preload sets a process-local internal marker, checked by configuration and fixtures; direct CLI/UI/VS Code execution without it fails closed. Inherited workers retain denial. Opt-in live variables cause default configuration to reject execution rather than switch lanes.
 
-Framework/configuration/contract checks support that same slice; they must not introduce additional product flows. Full checkout, account lifecycle, broad page hierarchies, multiple browsers, custom reporting, comprehensive accessibility and presentation work are outside M1. Deterministic CI is included by the latest explicit authorization.
+Deterministic tests cover the original controlled UI/API slice, config defaults/rejection, malformed and additive contracts, transport errors, data isolation, browser routing, preload enforcement, and fetch/HTTP/HTTPS/TLS/TCP/HTTP2/WebSocket/DNS/UDP denial. Synthetic fixtures are hand-authored, not raw captures. Negative live-origin and endpoint tests never dispatch requests. The guard covers maintained code using the tested built-ins, not arbitrary hostile native code.
 
-## Lane contract
+| Live group         | Expected evidence                                                                     |
+| ------------------ | ------------------------------------------------------------------------------------- |
+| Product search     | Searched-products heading and matching Blue Top name/price                            |
+| Two-product cart   | Both names, expected prices, exact quantities and total equals price times quantity   |
+| Product quantity   | Three units in the isolated cart, with exact total                                    |
+| Product removal    | The added row disappears from that cart                                               |
+| API products       | HTTP 200, provider 200, non-empty schema and representative id/name/price             |
+| API brands         | Non-empty valid brands with unique numeric IDs                                        |
+| API search         | Non-empty validated results matching the fixed product term                           |
+| API negative cases | HTTP status remains distinct from documented provider 405/400 and exact safe messages |
 
-| Lane                   | Checks / status                                                                                                                                                                        | Meaning and limits                                                                                                                                                         |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Required deterministic | Config rejection/defaults, synthetic API contracts, malformed payload handling, meaningful builder/adapter checks, UI boundary behavior on controlled markup and intercepted responses | Proves framework behavior under controlled inputs; cannot prove live site availability, actual selectors, product correctness, or conformance to a provider-owned contract |
-| Deferred live          | No live tests or adapter exist in M1; the live command rejects execution                                                                                                               | Evidence for the observed target and time only; externally dependent and excluded from required PR validation                                                              |
+Contracts tolerate additive fields and strictly validate everything consumed. A schema failure must not be hidden by widening consumed types. Live expectations are consumer assertions backed by public provider documentation, not provider certification.
 
-Deterministic fixtures are hand-authored and synthetic, versioned with expected contract changes, and never raw production captures. Include valid, missing-field, wrong-type, and relevant error examples within the approved slice. Contracts express consumer expectations, not a claim of provider agreement. Review fixture drift against later authorized live observations; never update fixtures just to make a failure disappear.
+## Selectors and lifecycle
 
-For UI interception, control the initial document and all network resources; fail closed on unhandled network attempts and block service workers. Minimal test markup is a fixture, not a local ecommerce application. Use injected controlled responses for API boundary checks. A required check must not contact Automation Exercise even during setup or teardown. Suite selection must enforce lane isolation, not rely only on labels.
+Prefer roles, placeholders, headings and domain relationships. Provider search submit, cart-add/remove icons and table cells lack usable accessible names, so documented IDs/classes are narrowly scoped to product cards/rows. Do not use positional selectors or arbitrary test sleeps. Budget waits are deliberate traffic throttling, not UI synchronization.
 
-M1 selects a single deterministic Playwright project with testDir restricted to tests/deterministic and an allowlisted npm wrapper. Configuration rejects live mode. No live specs exist, so there is no overlapping test selection. Node network APIs are denied by an inherited preload; Chromium is offline and routing rejects/audits every request except the controlled document.
+Each test gets a fresh context and session. Only transient cart additions/removal are allowed; no registration/login, review, contact, subscription, checkout, payment, order or persistent data. CSS/scripts may be cached across tests; cookies/session HTML may not. Close contexts even on failure.
 
-## Selectors, isolation, and lifecycle
+## Execution bounds
 
-Prefer accessible role/name and label locators, scoped to a meaningful region. Use stable test IDs only if actually available; use a documented, narrowly scoped fallback for an externally controlled DOM. Avoid positional selectors, brittle CSS chains, arbitrary sleeps, and speculative test IDs. Controlled markup can validate locator mechanics but does not validate the current live DOM.
+`npm run doctor` is the offline preflight. Each test wrapper additionally validates output roots and nested links. Deterministic defaults are 30-second tests and five-second assertions; QE_TIMEOUT_MS accepts 1000–30000. Live uses 60-second tests, ten-second assertions, 15-second actions/HTTP, 45-second navigation, a five-minute global cap, one worker and zero retries. One failed live case stops further cases to preserve the shared budget and avoid traffic after a safety failure. Report unexecuted cases honestly.
 
-Give every test its own browser/request context and fixtures. Do not depend on ordering, shared accounts, storage state, or other tests' mutations. Use seeded deterministic builders and reserved example domains, never real customer identities. Validate relevant HTTP status, schema, and meaningful values; do not assert only that a response exists.
-
-Future mutating scenarios require separate approval, unique synthetic ownership markers, a bounded cleanup plan, and a way to report cleanup failure. Clean up only resources created by that run. Never delete unrelated records or retry non-idempotent operations blindly. Close contexts in teardown even on failure.
-
-## Runtime policy
-
-Preflight is `npm run doctor`, implemented as defined in [engineering standards](engineering-standards.md). It checks the pinned runtime, browser binary, validated environment and artifact path without network access.
-
-M1 uses Chromium, one worker, zero retries, a 30-second test timeout and 5-second assertion timeout. QE_TIMEOUT_MS may lower the test bound to at least one second. The in-memory API needs no network timeout; a bounded HTTP timeout remains a prerequisite for a future live adapter. Investigate failures before introducing a documented exception. Use condition-based Playwright waiting within bounds. A later accepted retry must preserve the original failure and report flakiness rather than conceal it.
-
-Live execution follows the single-run, single-worker, request-budget policy in [security](security.md). It stops on throttling or blocking and cannot automatically restart as a retry. Deterministic parallelism can be considered only after isolation is proven; it must not silently raise live concurrency.
-
-Every skipped or quarantined test needs a reason, owner, affected risk, review/expiry date, and restoration criterion. Report exclusions alongside results. An unexplained skip or flaky pass cannot satisfy a milestone gate.
+At most 100 outbound dispatches, at least one second apart; redirects/assets count. See [live testing](live-testing.md) for allowlists and manual commands. No automatic live trigger exists. A focused rerun requires a concrete framework correction; never weaken assertions to force a pass.
 
 ## Failure classification and evidence
 
-| Category                             | Evidence and response                                                                                                                            |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Framework defect                     | Shared client/configuration/fixture behavior violates its contract; reproduce with controlled input and fix the shared boundary                  |
-| Test defect                          | Incorrect expectation, selector, setup, or cleanup; correct the test without weakening the requirement                                           |
-| Product defect                       | Observed live behavior contradicts an established expectation after environmental causes are assessed; record sanitized evidence and uncertainty |
-| External target instability          | Outage, throttling, third-party resource failure, or changing content; mark externally blocked/unstable, never count it as a framework pass      |
-| Environment or configuration failure | Missing browser, invalid settings, denied output path, or network setup issue; fail preflight and report safe diagnostics                        |
+Classify failures as framework, selector/assertion, network/environment, or provider only when supported by evidence. An HTTP failure alone is not proof of a provider defect. Unknown cases remain untriaged. Report pass/fail/skip/unexecuted counts, duration, commands, traffic and limitations. No unexplained skips or flaky passes satisfy a gate.
 
-Classify from evidence, not merely HTTP status. Preserve an unknown/untriaged outcome until the cause is supported; do not automatically label every live failure as external instability. Reports must include lane, scenario, timing, relevant versions, and sanitized error context.
+Synthetic failures may retain local trace/screenshots. Live errors are sanitized before built-in HTML reporting; only fixed scenario metadata and numeric traffic evidence are attached. Raw traces, screenshots, DOM snapshots, cookie values and response bodies are disabled. Separate report/output directories preserve each lane's evidence. Manual CI retains only sanitized live artifacts for seven days; deterministic CI uploads nothing.
 
-Use built-in Playwright reports, with failure-only screenshots/traces where capture is safe. Video is off by default. Apply [redaction, retention, and upload restrictions](security.md) before collection or sharing. No sensitive raw artifact is acceptable merely because a test failed.
-
-## Accessibility and later browsers
-
-In M3, use `@axe-core/playwright` for approved pages/states and record rules, scope, exclusions, and tooling version. Automated checks detect only part of accessibility risk and do not certify WCAG compliance. Manual keyboard, focus, and screen-reader assessment remains separately scoped work. Live accessibility checks follow live traffic controls. Firefox/WebKit and any expanded browser matrix require later risk-based scope approval.
+Accessibility and Firefox/WebKit remain separately scoped future work. No current automated check certifies WCAG conformance or cross-browser behavior.

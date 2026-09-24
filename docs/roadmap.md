@@ -2,13 +2,21 @@
 
 ## Current status and authority
 
-PR #1 merged the eight-document M0 contract using merge commit `1eb2d3a062702a3e3d5d772e3a982a7438bb5ee0`. The M0 branch is retained. M1 starts from that verified main commit on `milestone/1-foundation`.
+PR #1 merged M0 at `1eb2d3a062702a3e3d5d772e3a982a7438bb5ee0`. Reviewed M1 PR #2 merged with standard merge commit `b759bbe07c47310c94bf5e82ac87fb67bc135ef9`; both earlier feature branches are retained. M2 starts from that verified main on `milestone/2-live-automation-exercise`.
 
-Stefan subsequently authorized the complete narrow M1 foundation, dependency/runtime selection, deterministic GitHub Actions, implementation-backed documentation, validation, commit, push, and opening an M1 PR. This explicitly supersedes the M0 prohibition on implementation and its CI deferral. One independent Claude review of the final M1 PR head is the next gate; no M1 merge, M2, live external testing, release, or deployment is authorized.
+Stefan authorized M2's four live UI and five live API scenarios, one restrained full live run, accepted M1 corrections, manual live GitHub Actions, portfolio documentation, commit, push and a PR. The authority supersedes earlier live/CI/presentation deferrals only for this bounded scope. M2 merge, additional repositories, release and deployment remain unauthorized. No administrative review-record loop is required.
+
+## M1 review and M2 decisions
+
+Stefan supplied the 2026-09-24 Claude Opus 5.5 review of exact M1 head `0c07991e5033f03ac7f2841f225fa5bb8bb0840b`: `APPROVE WITH NON-BLOCKING RISKS`, zero blockers and zero MAJOR findings. Local deterministic commands and both GitHub checks passed. GitHub confirmed the unchanged single-commit, 40-file scope before merge.
+
+M2 addresses the three accepted MINOR findings: preload presence enforcement in config/workers; type-aware linting of floating promises and awaited thenables; direct transport-primitive denial tests including DNS and UDP. Notes are addressed through additive provider contracts, a fixed-operation HTTP adapter, specific safe preflight diagnostics, per-invocation output checks, current branch guidance, CI untracked-file detection, safe clean builds and public API documentation.
+
+The live lane has a separate configuration and directory, exact target opt-in, fixed operations, a shared 100-request budget, one-second spacing, one worker, zero retries and a five-minute cap. First-party CSS/scripts are cached within the run; images/fonts/third parties are blocked. Only session-local cart state is changed. Live diagnostics omit raw trace, DOM, cookie and payload data. See [live testing](live-testing.md) for the policy-check limitation and actual execution evidence.
 
 Follow [AGENTS.md](../AGENTS.md) for authority/read order. The original charter and corrected kickoff package remain historical planning inputs. The M0 review records below preserve what was authorized at their dates; their statements that M1 was unauthorized are historical, not current instructions.
 
-## M1 selected decisions
+## M1 selected decisions — historical foundation
 
 - Node 24.21.0 LTS, strict TypeScript 6.0.3, Playwright 1.63.0, Chromium, one worker and zero retries. The lint parser excludes TypeScript 7, so the newest compatible stable TS 6 patch was selected.
 - Prettier for formatting, ESLint/typescript-eslint for linting, Zod for runtime schemas, and exact lockfile installation with lifecycle scripts disabled. See [standards](engineering-standards.md) for versions and rationale.
@@ -20,23 +28,23 @@ Follow [AGENTS.md](../AGENTS.md) for authority/read order. The original charter 
 
 ## Milestones and gates
 
-| Milestone            | Scope and acceptance                                                                                                                                                                                                                    |
-| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| M0 — Contract        | Eight documents, independent reviews and administrative record complete; PR #1 merged                                                                                                                                                   |
-| M1 — Foundation      | One UI and one API scenario; validated config, one UI abstraction/client, controlled fixtures, safe failure artifacts, pinned toolchain, deterministic CI and verified operational docs. Final PR head awaits independent Claude review |
-| M2 — Core capability | Separately authorized useful UI/API extensions with typed contracts and isolated checks                                                                                                                                                 |
-| M3 — Hardening       | Negative paths, accessibility, security/reliability and lifecycle evidence; no unexplained skips or flaky passes                                                                                                                        |
-| M4 — CI and evidence | Expand reproducibility/evidence and consider separately authorized restrained live workflow; deterministic CI already introduced in M1                                                                                                  |
-| M5 — Presentation    | Accurate demonstrations, reviewed screenshots, explanation guide and portfolio evidence                                                                                                                                                 |
-| M6 — Release         | Repository definition of done, final exact-state audit and explicit release authority                                                                                                                                                   |
+| Milestone            | Scope and acceptance                                                                                                                            |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| M0 — Contract        | Eight documents, independent reviews and administrative record complete; PR #1 merged                                                           |
+| M1 — Foundation      | Reviewed with non-blocking risks; PR #2 merged unchanged; accepted findings corrected in M2                                                     |
+| M2 — Core capability | Authorized four live UI/five API scenarios, safety enforcement, deterministic regressions, manual workflow and presentation; stop at an open PR |
+| M3 — Hardening       | Negative paths, accessibility, security/reliability and lifecycle evidence; no unexplained skips or flaky passes                                |
+| M4 — CI and evidence | Expand reproducibility/evidence and consider separately authorized restrained live workflow; deterministic CI already introduced in M1          |
+| M5 — Presentation    | Accurate demonstrations, reviewed screenshots, explanation guide and portfolio evidence                                                         |
+| M6 — Release         | Repository definition of done, final exact-state audit and explicit release authority                                                           |
 
 M1 excludes checkout, account lifecycle, broad page hierarchies, multiple browsers, custom reporters, a separate application, large utility libraries, comprehensive accessibility and portfolio-presentation work. Supporting checks must remain tied to this slice.
 
 ## Remaining decisions and risks
 
-Live UI selectors, API fields, origin/endpoint allowlists and Terms/robots checks are deliberately unverified and deferred until live scope is explicitly authorized. Controlled tests do not validate the external product. Accessibility tooling and Firefox/WebKit remain later work. No license file is introduced; MIT remains an intended choice without an open-source grant.
+Live contracts/selectors express bounded consumer expectations for an externally controlled practice site. Site drift, unavailable policy text and blocked third-party presentation remain limitations; see the dated [live record](live-testing.md). Accessibility and Firefox/WebKit remain deferred. No license file is introduced; MIT remains intended without an open-source grant.
 
-The selected source/network policies protect against accidental requests in maintained tests, not malicious repository code. Browser cache installation and npm registry access are setup traffic, not live target testing. CI execution evidence must be reported from the actual run, not inferred from the workflow file. The final M1 Claude review is pending; no prior verdict approves M1.
+The source/network controls protect against accidental requests in maintained tests, not malicious repository code. Setup downloads are separate from test traffic. CI evidence must come from actual runs. M1's supplied review covers its exact head; no M1 verdict approves new M2 bytes.
 
 ## Historical M0 review evidence
 

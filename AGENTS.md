@@ -10,7 +10,7 @@ Read this file, [CLAUDE.md](CLAUDE.md), [engineering standards](docs/engineering
 
 ## Current authorization
 
-M1 foundation is authorized on milestone/1-foundation. The current authorization permits the narrow UI/API slice, configuration, toolchain, deterministic CI, implementation-backed documentation, validation, commit, push, and a PR. Independent Claude review of the final M1 PR head is the next gate. It does not authorize merging that PR, M2, release, deployment, or live external testing. The latest explicit authorization supersedes historical M0 installation and CI restrictions.
+Stefan authorized merging reviewed M1 PR #2 and implementing M2 on milestone/2-live-automation-exercise, including four UI and five API scenarios against the exact approved Automation Exercise hosts, one restrained complete live run, corrections for accepted M1 findings, a manual-only live workflow, documentation, commit, push, and an M2 PR. A focused live rerun requires a concrete framework correction. Do not merge M2, start another repository, release, or deploy. Read [live controls](docs/live-testing.md) before any external execution. This current explicit authorization supersedes historical M0/M1 deferrals; it does not authorize persistent user data or unlisted targets.
 
 Codex is the primary implementer. Claude Code reviews independently and read-only by default. Never allow concurrent Codex and Claude editing of one working tree. If later authorized to implement, Claude uses a separate branch or worktree and Codex reviews before integration.
 

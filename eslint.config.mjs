@@ -25,7 +25,20 @@ export default tseslint.config(
     },
   },
   {
-    files: ['src/**/*.ts', 'tests/**/*.ts'],
-    rules: { '@typescript-eslint/no-explicit-any': 'error' },
+    files: ['**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-floating-promises': [
+        'error',
+        { ignoreVoid: false },
+      ],
+      '@typescript-eslint/await-thenable': 'error',
+    },
   },
 );

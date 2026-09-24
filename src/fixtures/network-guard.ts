@@ -29,9 +29,9 @@ export async function installNetworkGuard(
       await route.abort('blockedbyclient');
     }
   });
-  await context.routeWebSocket('**/*', (socket) => {
+  await context.routeWebSocket('**/*', async (socket) => {
     denied = true;
-    socket.close();
+    await socket.close();
   });
   /** Fail even if scenario code swallowed a denied request error. */
   return function assertNoUnexpectedRequests(): void {

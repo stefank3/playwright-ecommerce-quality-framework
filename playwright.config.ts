@@ -1,6 +1,8 @@
 import { defineConfig } from '@playwright/test';
 import { readConfig } from './src/config/runtime.ts';
+import { requireDeterministicGuard } from './src/config/deterministic-guard.ts';
 
+requireDeterministicGuard();
 const config = readConfig(process.env);
 
 export default defineConfig({
@@ -12,8 +14,14 @@ export default defineConfig({
   forbidOnly: true,
   timeout: config.timeoutMs,
   expect: { timeout: 5000 },
-  outputDir: config.artifactRoot,
-  reporter: [['list'], ['html', { open: 'never' }]],
+  outputDir: `${config.artifactRoot}/deterministic`,
+  reporter: [
+    ['list'],
+    [
+      'html',
+      { open: 'never', outputFolder: 'playwright-report/deterministic' },
+    ],
+  ],
   metadata: {
     lane: config.mode,
     provenance: 'synthetic controlled fixtures; no live product evidence',

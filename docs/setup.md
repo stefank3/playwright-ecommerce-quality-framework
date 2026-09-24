@@ -5,7 +5,7 @@ Use Node.js 24.21.0 LTS and npm 11. `.node-version` pins the exact runtime; doct
 ```sh
 git clone https://github.com/stefank3/playwright-ecommerce-quality-framework.git
 cd playwright-ecommerce-quality-framework
-git checkout milestone/1-foundation
+git checkout milestone/2-live-automation-exercise
 npm ci
 npx playwright install chromium
 npm run doctor
@@ -14,7 +14,7 @@ npm run validate
 
 These commands have the same syntax in PowerShell and POSIX shells. On Linux, use `npx playwright install --with-deps chromium` to install browser system libraries as well. Browser installation may need administrator/package-manager permission. Use the approved Playwright installer; do not download arbitrary browser binaries.
 
-Network access is needed for clone, npm registry installation and Playwright browser downloads. Test execution is deterministic and uses no live target. `.npmrc` disables lifecycle scripts and automatic audit/funding requests; run `npm audit` explicitly when reviewing dependencies. Do not enable install scripts globally to work around an error.
+The checkout above selects the M2 review branch while its PR is open; use main after an authorized merge. Network access is needed for clone, installation and browser downloads. Default tests are deterministic; only explicit [live commands](live-testing.md) contact the target. `.npmrc` disables lifecycle scripts and automatic audit/funding requests; run `npm audit` explicitly for dependency review.
 
 No `.env` file is needed or loaded. Configuration reads only framework-owned `QE_` keys from the environment; unexpected keys fail closed. Unrelated operating-system variables are ignored and never printed.
 

@@ -5,7 +5,7 @@ export type ProductTransport = (
   path: '/api/productsList',
 ) => Promise<Readonly<{ status: number; body: unknown }>>;
 
-/** Narrow product-list client; M1 injects a controlled transport with no HTTP implementation. */
+/** Product-list consumer boundary over an injected deterministic or HTTP transport. */
 export class ProductClient {
   private readonly transport: ProductTransport;
 
