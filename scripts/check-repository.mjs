@@ -27,6 +27,16 @@ let links = 0;
 for (const file of files) {
   const name = relative(root, file).split(sep).join('/');
   const bytes = readFileSync(file);
+  if (name === 'docs/assets/live-report.png') {
+    if (
+      !bytes
+        .subarray(0, 8)
+        .equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10])) ||
+      bytes.length > 1024 * 1024
+    )
+      throw new Error('Invalid or oversized curated report PNG.');
+    continue;
+  }
   const content = new TextDecoder('utf-8', {
     fatal: true,
     ignoreBOM: true,

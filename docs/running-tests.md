@@ -1,27 +1,24 @@
-# Running, debugging, and evidence
+# Running, debugging and evidence
 
-Run `npm run validate` for the primary local/CI gate. It runs doctor, formatting, linting, type checking, deterministic tests, support compilation and repository checks. A nonzero result stops the sequence. Run the failing individual command after fixing the cause, then repeat the full gate before handoff.
+`npm run validate` is the fail-fast local/automatic CI gate: doctor, format check, lint, strict typing, deterministic tests, clean support build and repository checks. Live execution is separate and manual; see [live testing](live-testing.md).
 
-`npm test` and `npm run test:deterministic` select only the deterministic project. `npm run test:list` verifies discovery without execution. `npm run test:debug` launches the same guarded suite in Playwright Inspector; choose a step/test there. For a focused rerun, use `npm test -- --grep "read-only UI"`; the wrapper forwards only the pattern and keeps lane/network controls active. Runner flags that could override config/project are rejected.
+## Supported commands
 
-## Tests and what they prove
+- `npm test` or `npm run test:deterministic`: controlled scenarios and boundary checks.
+- `npm run test:list`: deterministic discovery without execution.
+- `npm run test:debug`: guarded Playwright Inspector; close it when finished.
+- `npm test -- --grep "read-only UI"`: focused deterministic selection.
+- `npm run test:live:list`: list the live suite after explicit opt-in, no requests.
+- `npm run test:live`, `test:live:ui`, `test:live:api`: real external requests under the bounded policy.
 
-| Test group         | Evidence                                                                                                                                       |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| Product UI         | The reusable page abstraction and role/name locators read one product name and price from controlled markup                                    |
-| Product API        | The client validates a synthetic successful listing and exposes expected typed data                                                            |
-| Configuration      | Deterministic immutable defaults; rejection of live mode, unknown keys, nonnumeric and out-of-range timeouts                                   |
-| Response contracts | Missing fields, empty listing and wrong ID types fail at the runtime boundary                                                                  |
-| Client failures    | Fixed endpoint use; transport exceptions are sanitized; non-success status is rejected before payload acceptance                               |
-| Data isolation     | Builders return independent mutable instances                                                                                                  |
-| Network denial     | Node fetch and Playwright APIRequestContext are rejected before transport; unexpected browser navigation and WebSockets are denied and audited |
+Direct `npx playwright test`, UI mode and IDE execution without the required preload fail closed. Runner/config overrides are rejected by wrappers. Missing `await` on a Playwright assertion is a lint error. Default tests never silently select live mode; clear live QE_ variables before running them.
 
-All data is synthetic. There are no skipped, quarantined, live, accessibility, cross-browser, account, or checkout tests. Tests are framework/consumer-contract evidence, not provider-certified contracts or proof of product correctness. Zero retries means a failure stays visible.
+## Reports and artifacts
 
-## Artifacts and shutdown
+Deterministic HTML lives at `playwright-report/deterministic/index.html`; `npm run report` opens it on loopback. Synthetic failure traces/screenshots live under `test-results/deterministic/`. Live HTML is `playwright-report/live/index.html`; use `npm run report:open`. Numeric sanitized live failure/results summary is `test-results/live/summary.json`. Ctrl+C stops either report server.
 
-Built-in list output describes the run. HTML output goes to ignored `playwright-report/`; test diagnostics go to ignored `test-results/`. Failure-only traces and screenshots are configured for synthetic contexts; video is off. `dist/` contains build output, not a deployable app.
+Generated output is ignored. Separate directories keep later deterministic validation from erasing live evidence. Delete local diagnostics within seven days and inspect before sharing. No raw live traces/screenshots/video or browser error context are captured. Manual CI uploads only sanitized live HTML/summary for seven days; automatic CI uploads nothing. See [security](security.md).
 
-Use `npm run report` to inspect an existing report on loopback. Stop its server with Ctrl+C. Traces can contain DOM and network payloads: do not share them without review. Delete local diagnostics within seven days; CI uploads are disabled. See [security](security.md).
+## Failure handling
 
-CI performs the same install/browser setup and `npm run validate`. Network is permitted for setup downloads, then test traffic is blocked by the maintained runner/browser policy. The policy is not a hostile-code sandbox. No workflow or command should silently fall back to live execution.
+Run the failed deterministic command after correcting its cause, then the full gate before handoff. Live runs use one worker, zero retries and fail-fast to prevent renewed traffic after errors. Record the failure category and unexecuted cases rather than treating them as passes. Do not rerun a complete live suite repeatedly; a focused rerun needs a concrete framework correction and the same controls.

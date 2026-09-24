@@ -2,8 +2,10 @@ import { spawnSync } from 'node:child_process';
 import { createRequire } from 'node:module';
 import { fileURLToPath } from 'node:url';
 import { readConfig } from '../src/config/runtime.ts';
+import { checkTestOutputs } from '../src/config/output-paths.ts';
 
 readConfig(process.env);
+checkTestOutputs();
 const args = process.argv.slice(2);
 // Runner/config overrides would bypass the lane contract. Allow only documented focused workflows.
 for (let index = 0; index < args.length; index++) {

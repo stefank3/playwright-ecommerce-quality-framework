@@ -15,4 +15,4 @@
 
 For install failures, check registry/proxy access without posting credentials or full environment dumps. `npm ci` replaces dependency installation from the lockfile; do not delete or regenerate the lockfile to hide a compatibility error. Stop foreground report/debug processes with Ctrl+C before retrying locked files on Windows.
 
-The live command intentionally fails. That result is a scope/security control, not evidence of Automation Exercise availability. No live availability check belongs in troubleshooting M1.
+Direct Playwright/IDE runs without the preload fail closed; use the documented npm wrappers. Live commands require exact QE_LIVE/QE_BASE_URL opt-in; clear those variables before default commands. Output checks reject nested links as well as unsafe roots. If a live lock remains after an interrupted process, verify no local run is active before removing only that lock. A live safety stop or sanitized failure requires classification from the scenario, line location and numeric summary; do not repeat the suite or bypass a challenge. See [live testing](live-testing.md).

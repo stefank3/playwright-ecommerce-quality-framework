@@ -3,6 +3,9 @@ import { ProductClient } from '../api/product-client.ts';
 import { buildProducts } from '../data/products.ts';
 import { installNetworkGuard } from './network-guard.ts';
 import { ProductListPage } from '../ui/product-list-page.ts';
+import { requireDeterministicGuard } from '../config/deterministic-guard.ts';
+
+requireDeterministicGuard();
 
 type Fixtures = {
   catalog: ProductListPage;
