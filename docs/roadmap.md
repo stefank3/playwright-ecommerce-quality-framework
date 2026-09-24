@@ -4,7 +4,36 @@
 
 PR #1 merged M0 at `1eb2d3a062702a3e3d5d772e3a982a7438bb5ee0`. Reviewed M1 PR #2 merged with standard merge commit `b759bbe07c47310c94bf5e82ac87fb67bc135ef9`; both earlier feature branches are retained. M2 starts from that verified main on `milestone/2-live-automation-exercise`.
 
-Stefan authorized M2's four live UI and five live API scenarios, one restrained full live run, accepted M1 corrections, manual live GitHub Actions, portfolio documentation, commit, push and a PR. The authority supersedes earlier live/CI/presentation deferrals only for this bounded scope. M2 merge, additional repositories, release and deployment remain unauthorized. No administrative review-record loop is required.
+Stefan authorized M2 implementation and its canonical supported-runtime live validation, then explicitly confirmed and accepted his additional manual PowerShell owner-verification run. The final closure authorization permits an evidence/status correction in exactly README.md, docs/live-testing.md and this roadmap, PR #3 description update, commit/push, corrected-head deterministic CI, a standard merge if every condition passes, and main synchronization. It supersedes earlier gate-specific no-merge statements; other tracked files and generated artifacts remain unchanged. No further live run, external target contact, release, deployment or Repository 2 work is authorized.
+
+## Final M2 independent review and Repository 1 closure
+
+| Field                               | Recorded evidence                                                                                                                                                                                                                                      |
+| ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Reviewer / date                     | Claude Opus 5.5 / 2026-09-24, independent review of PR #3                                                                                                                                                                                              |
+| Reviewed implementation             | `d565bc936c5c7cf2191d951d52f4811086b635d8` on `milestone/2-live-automation-exercise`                                                                                                                                                                   |
+| Base before merge                   | `b759bbe07c47310c94bf5e82ac87fb67bc135ef9`                                                                                                                                                                                                             |
+| Original verdict                    | `CHANGES REQUIRED`; M-1 was the only merge-blocking finding; no implementation BLOCKER findings                                                                                                                                                        |
+| M-1 evidence                        | Documentation claimed exactly one complete live run, while ignored local artifacts proved a second complete run                                                                                                                                        |
+| Stefan's explicit disposition       | Stefan manually initiated and authorized the second run from PowerShell around 12:27–12:28 +0200 on 2026-09-24; console output and artifact timings match Claude's finding. It was owner verification, not unexplained or unauthorized Codex execution |
+| M-1 correction                      | ACCEPTED AND CORRECTED through truthful two-run evidence and runtime/artifact provenance; no implementation change required                                                                                                                            |
+| Effective verdict after disposition | `APPROVE WITH NON-BLOCKING RISKS`; remaining blockers: zero; remaining MAJOR findings: zero                                                                                                                                                            |
+| Review boundary                     | Claude reviewed the implementation commit above. This administrative correction satisfies M-1 through Stefan's explicit disposition, as allowed by the review; it does not claim Claude reviewed the new administrative bytes                          |
+| Closure gate                        | Corrected-head deterministic CI and unchanged implementation scope must pass before the authorized standard merge; retain the feature branch                                                                                                           |
+
+The canonical Node 24.21.0/npm 11.x live run passed 9 tests (5 API, 4 UI) in **33,471.642 ms**. Stefan's additional owner-verification run passed the same 9 tests in **33,550.921 ms** on **Node 24.13.0/npm 11.6.2**, with dependencies and Chromium already installed. The latter is neither supported-runtime nor clean-install evidence. Each recorded 31 sent requests, 170 blocked requests and 91 cache hits, with zero failures/skips/retries. Aggregate: **2 complete suites, 18 test executions, 62 sent, 340 blocked, 182 cache hits; zero failures/skips/retries**. Preparation traffic remains separate: eight direct requests and the disclosed provider-documentation browser lookup, explicitly accepted by Stefan.
+
+The unchanged curated PNG represents the first run; ignored local HTML/summary represent the second. Stefan subsequently reported clean deterministic validation on **Node 24.21.0/npm 11.19.0**: npm ci installed 103 packages, Chromium installation completed, doctor/format/lint/types/build/repository checks passed, and **49 deterministic tests passed** without failures or skips. Repository checks reported 64 maintained files and 70 relative links. That validation did not contact Automation Exercise or repeat the live suite; no third live run occurred. See [complete evidence](live-testing.md).
+
+| Finding | Severity | Accepted non-blocking disposition                                                                                                                                  |
+| ------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| N-1     | MINOR    | Accepted and deferred: UI search checks the heading and expected Blue Top card but does not prove every returned product was filtered                              |
+| N-2     | MINOR    | Accepted and deferred: some exported types and constants still lack concise TSDoc                                                                                  |
+| N-3     | NOTE     | Accepted and deferred: cart coverage lacks exact row-count and reload-persistence checks; one arithmetic assertion is redundant                                    |
+| N-4     | NOTE     | Disclosed preparation traffic beyond the complete suites is explicitly accepted by Stefan; future accounting improvements remain deferred, not claimed implemented |
+| N-5     | NOTE     | Accepted and deferred: the HTTP adapter buffers before enforcing its 1 MB limit, and HTTP 303 handling differs between transport layers                            |
+
+Repository 1 is **portfolio-ready after PR #3 is merged** under this closure authorization. N-1 through N-5 remain recorded non-blocking portfolio improvement items, not completed fixes. Broader hardening, a release, deployment and Repository 2 remain future work requiring separate authorization; portfolio readiness does not claim those milestones are complete.
 
 ## M1 review and M2 decisions
 
@@ -28,15 +57,15 @@ Follow [AGENTS.md](../AGENTS.md) for authority/read order. The original charter 
 
 ## Milestones and gates
 
-| Milestone            | Scope and acceptance                                                                                                                            |
-| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| M0 — Contract        | Eight documents, independent reviews and administrative record complete; PR #1 merged                                                           |
-| M1 — Foundation      | Reviewed with non-blocking risks; PR #2 merged unchanged; accepted findings corrected in M2                                                     |
-| M2 — Core capability | Authorized four live UI/five API scenarios, safety enforcement, deterministic regressions, manual workflow and presentation; stop at an open PR |
-| M3 — Hardening       | Negative paths, accessibility, security/reliability and lifecycle evidence; no unexplained skips or flaky passes                                |
-| M4 — CI and evidence | Expand reproducibility/evidence and consider separately authorized restrained live workflow; deterministic CI already introduced in M1          |
-| M5 — Presentation    | Accurate demonstrations, reviewed screenshots, explanation guide and portfolio evidence                                                         |
-| M6 — Release         | Repository definition of done, final exact-state audit and explicit release authority                                                           |
+| Milestone            | Scope and acceptance                                                                                                                           |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| M0 — Contract        | Eight documents, independent reviews and administrative record complete; PR #1 merged                                                          |
+| M1 — Foundation      | Reviewed with non-blocking risks; PR #2 merged unchanged; accepted findings corrected in M2                                                    |
+| M2 — Core capability | Independently reviewed; M-1 disposition and evidence correction resolve the merge condition; authorized standard merge after corrected-head CI |
+| M3 — Hardening       | Negative paths, accessibility, security/reliability and lifecycle evidence; no unexplained skips or flaky passes                               |
+| M4 — CI and evidence | Expand reproducibility/evidence and consider separately authorized restrained live workflow; deterministic CI already introduced in M1         |
+| M5 — Presentation    | Accurate demonstrations, reviewed screenshots, explanation guide and portfolio evidence                                                        |
+| M6 — Release         | Repository definition of done, final exact-state audit and explicit release authority                                                          |
 
 M1 excludes checkout, account lifecycle, broad page hierarchies, multiple browsers, custom reporters, a separate application, large utility libraries, comprehensive accessibility and portfolio-presentation work. Supporting checks must remain tied to this slice.
 

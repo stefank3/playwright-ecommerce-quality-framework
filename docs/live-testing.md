@@ -6,11 +6,11 @@ Automation Exercise is an externally controlled shared practice site. M2 covers 
 
 On 2026-09-24, read-only preparation checked [robots.txt](https://automationexercise.com/robots.txt) and the candidate [Terms path](https://automationexercise.com/terms-and-conditions). Both returned HTTP 302 to `/`, not policy text. Inspected products/detail pages exposed no Terms link. The [provider API documentation](https://automationexercise.com/api_list) explicitly describes practice operations, but is not a substitute for Terms. No conflicting restriction was identified; policy text itself could not be verified. The bounded run relies on Stefan's explicit current authorization, not inferred permission from a missing page. Re-check policy and authorization before future manual runs.
 
-Preparation made eight direct site requests (four initial checks and four follow-up policy/script inspections), each spaced at least one second, plus the documentation browser lookup. These are separate from the one completed-suite validation allowance. No accounts or persistent data were created.
+Preparation made eight direct site requests (four initial checks and four follow-up policy/script inspections), each spaced at least one second, plus the separately disclosed browser lookup of provider documentation. Stefan explicitly accepts this disclosed preparation traffic. It is separate from both complete-suite runs and is not included in their aggregate traffic. No accounts or persistent data were created.
 
 ## Run deliberately
 
-Install the pinned runtime/dependencies/browser using [setup](setup.md). Complete `npm run validate` with no live variables first. Then, in PowerShell:
+Any future live run remains separately authorized and should use required Node 24.21.0. No additional live run is required for closure. Install the pinned runtime/dependencies/browser using [setup](setup.md). Complete `npm run validate` with no live variables first. Only with future live authorization, in PowerShell:
 
 ```powershell
 $env:QE_LIVE = 'true'
@@ -50,7 +50,25 @@ The site may change product names/prices, DOM or availability. Blocked ads/image
 
 ## Executed evidence — 2026-09-24
 
-One complete `npm run test:live` run, no retries or focused reruns: **9 passed, 0 failed, 0 skipped, 0 unexecuted; 33,471.642 ms**. API: 5/5 passed. UI: 4/4 passed. Final cumulative traffic: **31 outbound dispatches, 170 blocked browser requests, 91 static-asset cache hits**. These counters include the five API sends and all dispatched browser documents/assets/cart operations; blocked/cache-hit requests caused no outbound dispatch. Preparation requests listed above are separate. No account, persistent user content, order or payment was created.
+Two complete successful live-suite runs occurred. The first is the canonical supported-runtime validation; the second is Stefan's explicitly authorized manual owner verification. Each passed 9 tests (5 API and 4 UI), with zero failures, skips or retries. No account, persistent user content, order or payment was created.
+
+| Evidence                    | First run — canonical validation                                  | Second run — owner verification                                                                    |
+| --------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| Initiator                   | Codex under Stefan's implementation authorization                 | Stefan manually from PowerShell                                                                    |
+| Runtime                     | Node 24.21.0; supported npm 11.x baseline                         | Node 24.13.0; npm 11.6.2                                                                           |
+| Installation meaning        | Canonical supported-runtime live validation                       | Dependencies and Chromium already installed; not a clean installation                              |
+| Timing                      | 2026-09-24                                                        | Approximately 12:27–12:28 +0200 on 2026-09-24                                                      |
+| Artifact duration           | 33,471.642 ms                                                     | 33,550.921 ms; console approximately 33.6 seconds                                                  |
+| API / UI tests              | 5 passed / 4 passed                                               | 5 passed / 4 passed                                                                                |
+| Failures / skips / retries  | 0 / 0 / 0                                                         | 0 / 0 / 0                                                                                          |
+| Sent / blocked / cache hits | 31 / 170 / 91                                                     | 31 / 170 / 91                                                                                      |
+| Artifact provenance         | Committed `docs/assets/live-report.png` represents this first run | Ignored local HTML report and `test-results/live/summary.json` currently represent this second run |
+
+Node 24.13.0 does not satisfy the repository's required Node 24.21.0 baseline. The second run is accepted as owner verification only, not clean-install or supported-runtime validation. Stefan explicitly confirmed its initiator, authorization and PowerShell timing; the console output and artifact timings match the second run identified by Claude. It was not an unexplained or unauthorized Codex execution. The current ignored summary independently corroborates the second duration, results and traffic; runtime and initiator are attributed to Stefan's confirmation.
+
+Aggregate complete-suite evidence: **2 complete suites, 18 test executions, 0 failures, 0 skips, 0 retries; 62 sent requests, 340 blocked requests, 182 cache hits**. Per-run counters include the five API sends and dispatched browser documents/assets/cart operations; blocked/cache-hit requests caused no outbound dispatch. The eight direct preparation requests and separate documentation browser lookup remain outside these totals.
+
+The following scenario durations belong to the first, canonical run:
 
 | Scenario                     | Result | Duration  |
 | ---------------------------- | ------ | --------- |
@@ -66,4 +84,22 @@ One complete `npm run test:live` run, no retries or focused reruns: **9 passed, 
 
 The deterministic gate passed 49 tests with no skips/retries, plus doctor, formatting, type-aware lint, strict typing, clean build and repository checks. Live discovery listed exactly nine cases without traffic; missing opt-in and malicious-host rejection returned exit 1. An in-memory lint probe confirmed an unawaited Playwright assertion is rejected by no-floating-promises. Initial process-sandbox spawn failures and an overlapping install/discovery probe were environment/validation-order issues; final sequential checks passed after clean installation.
 
-The [curated README image](assets/live-report.png) shows the actual passing report. It was captured from generated local HTML through an offline intercepted document, inspected for content, and includes only scenario names/status/timing. No full report, trace, browser binary or dependency directory is committed. M2 remains unmerged and awaits independent review of its PR.
+### Subsequent supported-runtime clean validation
+
+After the second live run, Stefan activated **Node 24.21.0 and npm 11.19.0** and reported the following clean deterministic validation:
+
+| Command / evidence                | Result                                            |
+| --------------------------------- | ------------------------------------------------- |
+| `npm ci`                          | Passed; 103 packages installed                    |
+| `npx playwright install chromium` | Completed                                         |
+| `npm run doctor`                  | Passed                                            |
+| `npm run format:check`            | Passed                                            |
+| `npm run lint`                    | Passed                                            |
+| `npm run typecheck`               | Passed                                            |
+| `npm test`                        | 49 passed; no failures or skips reported          |
+| `npm run build`                   | Passed                                            |
+| `npm run check:repository`        | Passed; 64 maintained files and 70 relative links |
+
+This confirms clean installation and framework health under the supported runtime. It did not contact Automation Exercise and did not replace or repeat the live suite. No third live run occurred. This documentation correction executes no live command or target request and leaves generated/ignored artifacts untouched.
+
+The [curated README image](assets/live-report.png) remains the first run's report capture. It was rendered offline and inspected, and includes only scenario names/status/timing. It is unchanged by the evidence correction; the ignored report/summary now represent Stefan's second run. No full report, trace, browser binary or dependency directory is committed. The [review disposition](roadmap.md) records Claude's original `CHANGES REQUIRED` verdict and effective `APPROVE WITH NON-BLOCKING RISKS` after Stefan resolved M-1. No implementation change or additional live run is required.

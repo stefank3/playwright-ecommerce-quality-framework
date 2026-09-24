@@ -4,7 +4,7 @@
 
 A Playwright and strict TypeScript portfolio framework testing product discovery, session carts and typed API contracts. Required checks run with controlled synthetic inputs; a separate **manual live suite** exercises the shared [Automation Exercise practice site](https://automationexercise.com). Live availability never decides the automatic CI gate.
 
-M1 is reviewed and merged. M2 adds four live UI scenarios and five live API scenarios, with traffic budgets and isolated contexts. Its PR requires independent review before any merge. No accounts, orders, payments or persistent user content are created.
+M1 is reviewed and merged. M2 adds four live UI scenarios and five live API scenarios, with traffic budgets and isolated contexts. Independent review and Stefan's evidence disposition leave zero blockers; Repository 1 is portfolio-ready upon PR #3's authorized merge. See the [review record](docs/roadmap.md) for accepted non-blocking improvements. No accounts, orders, payments or persistent user content are created.
 
 ## Start locally
 
@@ -73,7 +73,7 @@ npm run report:open
 
 Reports are generated locally, not committed. Live failure evidence is sanitized status/timing/traffic data; raw live traces, screenshots and cookies are not captured. Ctrl+C stops the report server. See [live execution evidence](docs/live-testing.md) for actual results and limitations, not a guarantee of future passes.
 
-One authorized run on 2026-09-24: **9 passed (5 API + 4 UI), 0 failed/skipped, 33.5 seconds, 31 outbound dispatches**. The image below is a reviewed capture of that generated report, rendered with network disabled; it contains no target page, cookies or response data.
+Two complete live runs passed on 2026-09-24. The canonical supported-runtime run used **Node 24.21.0: 9 passed (5 API + 4 UI), 33,471.642 ms, 31 outbound dispatches**; the image below represents this first run. Stefan later performed an additional authorized PowerShell owner-verification run: **9 passed on Node 24.13.0**, which is outside the supported baseline and is not canonical runtime or clean-install evidence. Subsequent clean deterministic validation on required Node 24.21.0 passed **49 tests**. Live tests remain manual and explicitly opt-in; no additional live run is required. See [runtime, traffic and artifact provenance](docs/live-testing.md) for details. The curated image contains no target page, cookies or response data.
 
 ![Playwright report: nine live tests passed on 2026-09-24](docs/assets/live-report.png)
 
