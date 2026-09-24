@@ -1,6 +1,6 @@
 # Independent review contract
 
-This defines the Claude Code review contract. The initial claimed Claude Opus 4.7 review and Claude Opus 5.5 corrected-state, closure-diff, and final record-correction reviews are recorded in [roadmap](docs/roadmap.md); their verdicts apply only to the identified reviewed bytes. The corrected-state verdict references commit `7a7d83599ce1505647444d1e686787a090edae0b`; the reviewed closure diff was committed unchanged as `e2ef8789d526b0ec1544868015fa94a71d100586`. The final policy correction was reviewed by Claude Opus 5.5 with `APPROVE WITH NON-BLOCKING RISKS` and zero blockers, then committed unchanged as `b43f2d602705ae2acf6f0cd59779c33d86cb4267`, parent `e2ef8789d526b0ec1544868015fa94a71d100586`. With this administrative record included, the M0 contract and review gates are complete on `milestone/0-contract`. The branch remains unmerged; main remains at `5a6bb0ba489267d72bbde4b996764afbda3b657a`. Opening a PR or merging requires separate authorization. Current repository status is planning-only; M1 remains unauthorized.
+This contract governs the independent read-only review of the final M1 PR head. PR #1 merged M0 at 1eb2d3a062702a3e3d5d772e3a982a7438bb5ee0; the historical reviews remain recorded in [roadmap](docs/roadmap.md). M1 implementation, validation, commit, push and PR creation are authorized; merging M1, M2 and live execution are not. Review the exact PR commit, not a previous M0 verdict.
 
 ## Context and authority
 

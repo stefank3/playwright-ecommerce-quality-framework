@@ -10,9 +10,7 @@ Read this file, [CLAUDE.md](CLAUDE.md), [engineering standards](docs/engineering
 
 ## Current authorization
 
-The repository is planning-only. M0 authorizes exactly `README.md`, `AGENTS.md`, `CLAUDE.md`, `docs/architecture.md`, `docs/test-strategy.md`, `docs/engineering-standards.md`, `docs/security.md`, and `docs/roadmap.md`.
-
-Do not install dependencies, choose or pin Node.js, install browsers, contact Automation Exercise, create accounts/data externally, implement application/framework/test code, configure CI, or begin M1. Do not create additional placeholder documents or generated files. All npm commands in the documents are future design targets.
+M1 foundation is authorized on milestone/1-foundation. The current authorization permits the narrow UI/API slice, configuration, toolchain, deterministic CI, implementation-backed documentation, validation, commit, push, and a PR. Independent Claude review of the final M1 PR head is the next gate. It does not authorize merging that PR, M2, release, deployment, or live external testing. The latest explicit authorization supersedes historical M0 installation and CI restrictions.
 
 Codex is the primary implementer. Claude Code reviews independently and read-only by default. Never allow concurrent Codex and Claude editing of one working tree. If later authorized to implement, Claude uses a separate branch or worktree and Codex reviews before integration.
 
