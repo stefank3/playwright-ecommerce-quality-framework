@@ -18,6 +18,8 @@ Automatic CI runs 49 deterministic tests without contacting external application
 
 ## Start locally
 
+**Study this framework:** [Code walkthrough](docs/code-walkthrough.md) · [Interview guide](docs/interview-guide.md) · [Technical workbook](guide/Playwright-Ecommerce-Quality-Framework-Guide.md) · [Download PDF](guide/Playwright-Ecommerce-Quality-Framework-Guide.pdf). The [generation contract](docs/extending.md#study-guide-and-pdf-generation) explains how to reproduce the PDF.
+
 Use **Node 24.21.0 LTS** (`.node-version`) and npm 11. From the repository root, in PowerShell or Bash:
 
 ```sh

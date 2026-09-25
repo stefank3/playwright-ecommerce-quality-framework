@@ -1,0 +1,5 @@
+# PDF generation and inspection only; isolated from the npm runtime.
+reportlab==4.4.9
+pillow==12.3.0
+charset-normalizer==3.5.1
+pypdf==6.10.0

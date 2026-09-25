@@ -1,4 +1,11 @@
-import { readdirSync, readFileSync } from 'node:fs';
+/**
+ * Validate maintained files, documentation links, guide freshness and selected imports.
+ * Inputs are repository-local files; output is a summary or thrown validation error.
+ * Reads files and Git's candidate inventory; no network, tests or file writes.
+ */
+import { readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { createHash } from 'node:crypto';
 import { dirname, resolve, relative, sep } from 'node:path';
 import { TextDecoder } from 'node:util';
 
@@ -12,21 +19,78 @@ const excluded = new Set([
   'playwright-report',
 ]);
 
-/** List maintained text files without descending into dependencies, Git, or generated output. */
-function filesUnder(directory) {
-  return readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
-    if (excluded.has(entry.name)) return [];
-    const path = resolve(directory, entry.name);
-    return entry.isDirectory() ? filesUnder(path) : [path];
-  });
+/** Read tracked and non-ignored untracked paths, retaining fixed generated-directory exclusions. */
+function maintainedFiles() {
+  const result = spawnSync(
+    'git',
+    ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '.'],
+    { cwd: root, encoding: 'utf8', shell: false, maxBuffer: 10 * 1024 * 1024 },
+  );
+  if (result.error || result.status !== 0)
+    throw new Error('Cannot read Git maintained-file inventory.');
+  return [...new Set(result.stdout.split('\0').filter(Boolean))]
+    .filter((name) => !name.split('/').some((part) => excluded.has(part)))
+    .sort()
+    .map((name) => resolve(root, name));
 }
 
-const files = filesUnder(root);
+const files = maintainedFiles();
 const fileSet = new Set(files);
+const workbook = 'guide/Playwright-Ecommerce-Quality-Framework-Guide';
+const guideFiles = [
+  'docs/code-walkthrough.md',
+  'docs/interview-guide.md',
+  `${workbook}.md`,
+  `${workbook}.pdf`,
+  'guide/requirements.txt',
+  'scripts/docs_pdf.py',
+];
+for (const name of guideFiles) {
+  if (!fileSet.has(resolve(root, name)))
+    throw new Error(`Missing maintained guide file: ${name}`);
+}
+const guideHash = createHash('sha256');
+for (const name of [
+  `${workbook}.md`,
+  'scripts/docs_pdf.py',
+  'guide/requirements.txt',
+]) {
+  guideHash.update(readFileSync(resolve(root, name)));
+}
+const fingerprint = `Guide build SHA-256: ${guideHash.digest('hex')}`;
+const walkthrough = readFileSync(resolve(root, guideFiles[0]), 'utf8');
+for (const file of files) {
+  const name = relative(root, file).split(sep).join('/');
+  if (!walkthrough.includes(`\`${name}\``))
+    throw new Error(`Maintained file missing from walkthrough: ${name}`);
+}
+const lessons = readFileSync(resolve(root, `${workbook}.md`), 'utf8').match(
+  /^## \d{2}\. .+$/gm,
+);
+if (
+  lessons?.length !== 30 ||
+  lessons.some(
+    (lesson, index) =>
+      !lesson.startsWith(`## ${String(index + 1).padStart(2, '0')}. `),
+  )
+)
+  throw new Error('Workbook requires 30 ordered numbered lessons.');
 let links = 0;
 for (const file of files) {
   const name = relative(root, file).split(sep).join('/');
   const bytes = readFileSync(file);
+  if (name === `${workbook}.pdf`) {
+    if (
+      !bytes.subarray(0, 5).equals(Buffer.from('%PDF-')) ||
+      !bytes.subarray(-16).toString('ascii').includes('%%EOF') ||
+      bytes.length > 5 * 1024 * 1024 ||
+      !bytes.includes(Buffer.from(`/Subject (${fingerprint})`))
+    )
+      throw new Error(
+        'Invalid, oversized or stale study PDF; run npm run docs:pdf.',
+      );
+    continue;
+  }
   if (name === 'docs/assets/live-report.png') {
     if (
       !bytes
@@ -51,7 +115,7 @@ for (const file of files) {
   ) {
     throw new Error(`Encoding/whitespace violation: ${name}`);
   }
-  if (/\.(ts|mjs)$/.test(name) && content.split('\n').length > 350)
+  if (/\.(ts|mjs|py)$/.test(name) && content.split('\n').length > 350)
     throw new Error(`Source requires size review: ${name}`);
   if (name.endsWith('.md')) {
     if ((content.match(/^```/gm)?.length ?? 0) % 2)
