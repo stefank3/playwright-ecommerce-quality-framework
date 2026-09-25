@@ -4,3 +4,4 @@ dist
 test-results
 playwright-report
 package-lock.json
+guide/Playwright-Ecommerce-Quality-Framework-Guide.pdf

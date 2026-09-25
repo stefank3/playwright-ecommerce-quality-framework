@@ -10,3 +10,4 @@ test-results/
 *.log
 .auth/
 *storage-state*.json
+guide/*.pdf.tmp

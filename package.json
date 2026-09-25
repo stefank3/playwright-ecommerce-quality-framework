@@ -27,6 +27,7 @@
     "report:open": "playwright show-report playwright-report/live --host 127.0.0.1",
     "build": "node scripts/build.mjs",
     "check:repository": "node scripts/check-repository.mjs",
+    "docs:pdf": "python scripts/docs_pdf.py",
     "validate": "npm run doctor && npm run format:check && npm run lint && npm run typecheck && npm test && npm run build && npm run check:repository"
   },
   "devDependencies": {
